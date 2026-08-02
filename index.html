@@ -3,330 +3,475 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>کوچک دفتر | ایهام صمدی</title>
-
 <meta name="description" content="کوچک دفتر؛ دفتر شعر و نوشته‌های ایهام صمدی، جلال ضمدی">
 <meta name="author" content="ایهام صمدی - جلال ضمدی">
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+html,body{
+    width:100%;
+    min-height:100%;
 }
 
-body {
-    background: #030308;
-    color: #f5f2ea;
-    font-family: Tahoma, Arial, sans-serif;
-    overflow-x: hidden;
+body{
+    background:#000;
+    color:#fff;
+    font-family:Tahoma,Arial,sans-serif;
+    overflow:hidden;
 }
 
-/* پس زمینه */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -10;
+/* =========================
+   CINEMATIC INTRO
+========================= */
+
+.intro{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100vh;
+    height:100svh;
+    overflow:hidden;
     background:
-        radial-gradient(circle at 50% 20%, rgba(120, 100, 190, 0.18), transparent 30%),
-        radial-gradient(circle at 15% 80%, rgba(70, 80, 160, 0.10), transparent 30%),
-        linear-gradient(180deg, #020207, #070611, #020207);
+        radial-gradient(
+            ellipse at center,
+            #11111b 0%,
+            #05050a 42%,
+            #000 100%
+        );
 }
 
-/* ستاره‌ها */
-.stars {
-    position: fixed;
-    inset: 0;
-    z-index: -5;
-    pointer-events: none;
-    background-image:
-        radial-gradient(1px 1px at 10% 20%, white, transparent),
-        radial-gradient(1px 1px at 25% 70%, white, transparent),
-        radial-gradient(1px 1px at 40% 30%, white, transparent),
-        radial-gradient(1px 1px at 55% 80%, white, transparent),
-        radial-gradient(1px 1px at 70% 15%, white, transparent),
-        radial-gradient(1px 1px at 82% 55%, white, transparent),
-        radial-gradient(1px 1px at 92% 25%, white, transparent),
-        radial-gradient(1px 1px at 90% 85%, white, transparent);
-    opacity: 0.55;
-    animation: moveStars 15s linear infinite;
+/* نور عظیم پشت صحنه */
+
+.ambient{
+    position:absolute;
+    width:75vw;
+    height:75vw;
+    max-width:700px;
+    max-height:700px;
+    left:50%;
+    top:42%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:radial-gradient(
+        circle,
+        rgba(130,120,190,.12),
+        rgba(80,70,130,.05) 35%,
+        transparent 70%
+    );
+    filter:blur(25px);
+    animation:ambient 8s ease-in-out infinite;
 }
 
-@keyframes moveStars {
-    from {
-        transform: translateY(0);
+@keyframes ambient{
+    0%,100%{
+        opacity:.45;
+        transform:translate(-50%,-50%) scale(.9);
     }
-    to {
-        transform: translateY(-30px);
-    }
-}
-
-/* صفحه ورود */
-.intro {
-    min-height: 100vh;
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 30px;
-    position: relative;
-}
-
-.glow {
-    position: absolute;
-    width: 430px;
-    height: 430px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(170, 155, 255, 0.13), transparent 68%);
-    filter: blur(20px);
-    animation: pulse 6s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(0.9);
-        opacity: 0.5;
-    }
-    50% {
-        transform: scale(1.15);
-        opacity: 1;
+    50%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1.15);
     }
 }
 
-/* ماه */
-.moon {
-    width: 145px;
-    height: 145px;
-    border-radius: 50%;
+/* =========================
+   STARS
+========================= */
+
+.stars{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    border-radius:50%;
+    background:#fff;
+    opacity:0;
+    animation:starAppear var(--time) ease-in-out infinite;
+    animation-delay:var(--delay);
+}
+
+@keyframes starAppear{
+    0%,100%{
+        opacity:0;
+        transform:scale(.3);
+    }
+    50%{
+        opacity:var(--opacity);
+        transform:scale(1);
+    }
+}
+
+/* =========================
+   MOON
+========================= */
+
+.moon-wrap{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-58%);
+    width:190px;
+    height:190px;
+    opacity:0;
+    animation:moonReveal 3s ease forwards;
+    animation-delay:1.2s;
+}
+
+.moon{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
     background:
-        radial-gradient(circle at 35% 30%, #ffffff, #e9e7f2 55%, #c4c1d0);
+        radial-gradient(
+            circle at 32% 28%,
+            #fff 0%,
+            #f4f3fa 35%,
+            #d4d2df 70%,
+            #a9a6b4 100%
+        );
     box-shadow:
-        0 0 30px rgba(255,255,255,0.35),
-        0 0 90px rgba(150,140,255,0.18);
-    margin-bottom: 50px;
-    animation: moonFloat 6s ease-in-out infinite;
+        0 0 20px rgba(255,255,255,.45),
+        0 0 60px rgba(210,205,255,.25),
+        0 0 150px rgba(120,110,190,.15);
 }
 
-@keyframes moonFloat {
-    0%, 100% {
-        transform: translateY(0);
+/* لکه های ماه */
+
+.moon::before,
+.moon::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:rgba(120,115,130,.10);
+}
+
+.moon::before{
+    width:35px;
+    height:35px;
+    top:32px;
+    left:42px;
+    box-shadow:
+        48px 30px 0 rgba(120,115,130,.08),
+        20px 82px 0 rgba(120,115,130,.09),
+        83px 78px 0 rgba(120,115,130,.07);
+}
+
+.moon::after{
+    width:22px;
+    height:22px;
+    top:105px;
+    left:52px;
+    box-shadow:
+        54px -70px 0 rgba(120,115,130,.07),
+        70px 32px 0 rgba(120,115,130,.06);
+}
+
+/* هاله ماه */
+
+.moon-glow{
+    position:absolute;
+    inset:-70px;
+    border-radius:50%;
+    background:radial-gradient(
+        circle,
+        rgba(210,205,255,.12),
+        transparent 68%
+    );
+    filter:blur(12px);
+    animation:moonGlow 5s ease-in-out infinite;
+}
+
+@keyframes moonGlow{
+    0%,100%{
+        opacity:.4;
+        transform:scale(.9);
     }
-    50% {
-        transform: translateY(-15px);
+    50%{
+        opacity:1;
+        transform:scale(1.12);
     }
 }
 
-.small-title {
-    color: #77737d;
-    font-size: 11px;
-    letter-spacing: 7px;
-    margin-bottom: 22px;
-}
-
-.title {
-    font-size: clamp(50px, 13vw, 100px);
-    font-weight: 300;
-    letter-spacing: 5px;
-    margin-bottom: 18px;
-    animation: titleIn 2s ease;
-}
-
-@keyframes titleIn {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-        letter-spacing: 15px;
+@keyframes moonReveal{
+    0%{
+        opacity:0;
+        transform:translate(-50%,-58%) scale(.15);
+        filter:blur(25px);
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-        letter-spacing: 5px;
+    60%{
+        opacity:1;
+        filter:blur(0);
+    }
+    100%{
+        opacity:1;
+        transform:translate(-50%,-58%) scale(1);
     }
 }
 
-.pen-name {
-    color: #aaa6b2;
-    font-size: 19px;
-    letter-spacing: 4px;
+/* =========================
+   SHOOTING STARS
+========================= */
+
+.shooting-star{
+    position:absolute;
+    width:130px;
+    height:1px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.8),
+        transparent
+    );
+    opacity:0;
+    transform:rotate(-28deg);
+    animation:shoot 7s linear infinite;
 }
 
-.real-name {
-    margin-top: 10px;
-    color: #5e5a65;
-    font-size: 13px;
+.shooting-star.one{
+    top:22%;
+    left:-20%;
+    animation-delay:4s;
 }
 
-.enter {
-    margin-top: 55px;
-    padding: 14px 38px;
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 50px;
-    color: #eeeeee;
-    text-decoration: none;
-    background: rgba(255,255,255,0.03);
-    transition: 0.4s;
+.shooting-star.two{
+    top:35%;
+    left:-25%;
+    animation-delay:8s;
+    width:90px;
 }
 
-.enter:hover {
-    background: #eeeeee;
-    color: #030308;
-    transform: translateY(-4px);
+@keyframes shoot{
+    0%{
+        opacity:0;
+        transform:translate(0,0) rotate(-28deg);
+    }
+    5%{
+        opacity:1;
+    }
+    18%{
+        opacity:0;
+        transform:translate(150vw,55vh) rotate(-28deg);
+    }
+    100%{
+        opacity:0;
+    }
 }
 
-.scroll {
-    position: absolute;
-    bottom: 28px;
-    color: #4f4c56;
-    font-size: 10px;
-    letter-spacing: 3px;
+/* =========================
+   TEXT
+========================= */
+
+.content{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,85%);
+    width:100%;
+    text-align:center;
+    opacity:0;
+    animation:textReveal 2.5s ease forwards;
+    animation-delay:3.5s;
 }
 
-/* محتوای اصلی */
-main {
-    max-width: 1050px;
-    margin: auto;
-    padding: 110px 24px 70px;
+@keyframes textReveal{
+    from{
+        opacity:0;
+        transform:translate(-50%,100%);
+    }
+    to{
+        opacity:1;
+        transform:translate(-50%,85%);
+    }
 }
 
-.heading {
-    text-align: center;
-    margin-bottom: 60px;
+.subtitle{
+    font-size:10px;
+    letter-spacing:8px;
+    color:#77727f;
+    margin-bottom:18px;
 }
 
-.heading h2 {
-    font-size: 34px;
-    font-weight: 300;
-    margin-bottom: 15px;
+.title{
+    font-size:clamp(48px,13vw,100px);
+    font-weight:300;
+    letter-spacing:7px;
+    text-shadow:
+        0 0 35px rgba(255,255,255,.08);
 }
 
-.heading p {
-    color: #68646f;
-    font-size: 13px;
+.pen{
+    margin-top:20px;
+    font-size:18px;
+    letter-spacing:5px;
+    color:#aaa6b2;
 }
 
-.line {
-    width: 55px;
-    height: 1px;
-    background: rgba(255,255,255,0.3);
-    margin: 25px auto 0;
+.real{
+    margin-top:9px;
+    color:#55515d;
+    font-size:12px;
+    letter-spacing:2px;
 }
 
-/* شعرها */
-.poems {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+/* =========================
+   QUOTE
+========================= */
+
+.quote{
+    position:absolute;
+    left:50%;
+    bottom:14%;
+    transform:translateX(-50%);
+    width:90%;
+    max-width:650px;
+    text-align:center;
+    color:#6d6875;
+    font-size:13px;
+    line-height:2.2;
+    opacity:0;
+    animation:quoteReveal 2s ease forwards;
+    animation-delay:5.3s;
 }
 
-.poem {
-    position: relative;
-    display: block;
-    min-height: 210px;
-    padding: 32px 28px;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 20px;
-    background: rgba(255,255,255,0.025);
-    color: #eeeeee;
-    text-decoration: none;
-    overflow: hidden;
-    transition: 0.45s;
+@keyframes quoteReveal{
+    from{
+        opacity:0;
+        transform:translate(-50%,15px);
+    }
+    to{
+        opacity:1;
+        transform:translate(-50%,0);
+    }
 }
 
-.poem:hover {
-    transform: translateY(-7px);
-    border-color: rgba(255,255,255,0.25);
-    background: rgba(255,255,255,0.05);
+/* =========================
+   ENTER BUTTON
+========================= */
+
+.enter{
+    position:absolute;
+    left:50%;
+    bottom:6%;
+    transform:translateX(-50%);
+    padding:13px 34px;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:50px;
+    color:#ddd;
+    background:rgba(255,255,255,.025);
+    backdrop-filter:blur(10px);
+    text-decoration:none;
+    font-size:13px;
+    opacity:0;
+    animation:buttonReveal 2s ease forwards;
+    animation-delay:6.2s;
+    transition:.5s;
 }
 
-.number {
-    color: #57535e;
-    font-size: 11px;
-    letter-spacing: 3px;
-    margin-bottom: 22px;
+.enter:hover{
+    color:#000;
+    background:#fff;
+    box-shadow:0 0 40px rgba(255,255,255,.15);
+    transform:translateX(-50%) translateY(-4px);
 }
 
-.poem h3 {
-    font-size: 23px;
-    font-weight: 400;
-    margin-bottom: 14px;
+@keyframes buttonReveal{
+    from{
+        opacity:0;
+        transform:translateX(-50%) translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(-50%) translateY(0);
+    }
 }
 
-.poem p {
-    color: #77737e;
-    font-size: 14px;
-    line-height: 2;
+/* =========================
+   PAGE EXIT
+========================= */
+
+.exit{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:#000;
+    pointer-events:none;
+    opacity:0;
+    transition:1.4s ease;
 }
 
-/* درباره */
-.about {
-    margin-top: 120px;
-    padding: 60px 25px;
-    text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.07);
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+body.leaving .exit{
+    opacity:1;
 }
 
-.about h2 {
-    font-size: 30px;
-    font-weight: 300;
-    margin-bottom: 22px;
-}
+/* =========================
+   MOBILE
+========================= */
 
-.about p {
-    color: #77737e;
-    line-height: 2.4;
-    font-size: 14px;
-}
+@media(max-width:600px){
 
-.about strong {
-    color: #aaa6b1;
-    font-weight: 400;
-}
-
-/* فوتر */
-footer {
-    padding: 55px 20px;
-    text-align: center;
-    color: #45424b;
-    font-size: 11px;
-}
-
-.footer-name {
-    margin-top: 10px;
-    color: #333039;
-}
-
-/* موبایل */
-@media (max-width: 700px) {
-
-    .moon {
-        width: 110px;
-        height: 110px;
-        margin-bottom: 40px;
+    .moon-wrap{
+        width:125px;
+        height:125px;
+        transform:translate(-50%,-70%);
     }
 
-    .title {
-        font-size: 52px;
+    @keyframes moonReveal{
+        0%{
+            opacity:0;
+            transform:translate(-50%,-70%) scale(.15);
+            filter:blur(25px);
+        }
+        60%{
+            opacity:1;
+            filter:blur(0);
+        }
+        100%{
+            opacity:1;
+            transform:translate(-50%,-70%) scale(1);
+        }
     }
 
-    .pen-name {
-        font-size: 17px;
+    .content{
+        transform:translate(-50%,35%);
     }
 
-    .poems {
-        grid-template-columns: 1fr;
+    @keyframes textReveal{
+        from{
+            opacity:0;
+            transform:translate(-50%,50%);
+        }
+        to{
+            opacity:1;
+            transform:translate(-50%,35%);
+        }
     }
 
-    main {
-        padding-top: 80px;
+    .title{
+        font-size:50px;
+        letter-spacing:4px;
+    }
+
+    .pen{
+        font-size:16px;
+    }
+
+    .quote{
+        bottom:18%;
+        font-size:12px;
+    }
+
+    .enter{
+        bottom:7%;
     }
 }
 </style>
@@ -334,134 +479,87 @@ footer {
 
 <body>
 
-<div class="stars"></div>
+<div class="intro">
 
-<section class="intro">
+    <div class="ambient"></div>
 
-    <div class="glow"></div>
+    <div class="stars">
 
-    <div class="moon"></div>
+        <span class="star" style="left:8%;top:18%;--time:5s;--delay:1s;--opacity:.8"></span>
+        <span class="star" style="left:17%;top:42%;--time:7s;--delay:2s;--opacity:.5"></span>
+        <span class="star" style="left:28%;top:16%;--time:6s;--delay:3s;--opacity:.7"></span>
+        <span class="star" style="left:39%;top:28%;--time:8s;--delay:1s;--opacity:.6"></span>
+        <span class="star" style="left:52%;top:12%;--time:5s;--delay:4s;--opacity:.8"></span>
+        <span class="star" style="left:65%;top:25%;--time:7s;--delay:2s;--opacity:.6"></span>
+        <span class="star" style="left:78%;top:16%;--time:6s;--delay:3s;--opacity:.7"></span>
+        <span class="star" style="left:91%;top:34%;--time:8s;--delay:1s;--opacity:.5"></span>
 
-    <div class="small-title">
-        A SMALL NOTEBOOK
+        <span class="star" style="left:12%;top:70%;--time:7s;--delay:4s;--opacity:.6"></span>
+        <span class="star" style="left:25%;top:82%;--time:6s;--delay:2s;--opacity:.8"></span>
+        <span class="star" style="left:45%;top:72%;--time:8s;--delay:1s;--opacity:.5"></span>
+        <span class="star" style="left:70%;top:78%;--time:5s;--delay:3s;--opacity:.7"></span>
+        <span class="star" style="left:88%;top:68%;--time:7s;--delay:2s;--opacity:.6"></span>
+
     </div>
 
-    <h1 class="title">
-        کوچک دفتر
-    </h1>
+    <div class="shooting-star one"></div>
+    <div class="shooting-star two"></div>
 
-    <div class="pen-name">
-        ایهام صمدی
+    <div class="moon-wrap">
+        <div class="moon-glow"></div>
+        <div class="moon"></div>
     </div>
 
-    <div class="real-name">
-        جلال ضمدی
+    <div class="content">
+
+        <div class="subtitle">
+            A SMALL NOTEBOOK
+        </div>
+
+        <h1 class="title">
+            کوچک دفتر
+        </h1>
+
+        <div class="pen">
+            ایهام صمدی
+        </div>
+
+        <div class="real">
+            جلال ضمدی
+        </div>
+
     </div>
 
-    <a href="#poems" class="enter">
-        ورود به دفتر
+    <div class="quote">
+        «هر آنچه نتوانستم بگویم،
+        اینجا نوشتم...»
+    </div>
+
+    <a href="#inside" class="enter" onclick="enterSite(event)">
+        ورود به کوچک دفتر
     </a>
 
-    <div class="scroll">
-        ↓ &nbsp; SCROLL
-    </div>
+</div>
 
-</section>
+<div class="exit"></div>
 
-<main id="poems">
+<script>
 
-    <section class="heading">
+function enterSite(event){
 
-        <h2>اشعار</h2>
+    event.preventDefault();
 
-        <p>
-            چیزهایی که نتوانستم بگویم، نوشتم.
-        </p>
+    document.body.classList.add("leaving");
 
-        <div class="line"></div>
+    setTimeout(function(){
 
-    </section>
+        window.location.href = "#inside";
 
-    <section class="poems">
+    },1200);
 
-        <a href="#" class="poem">
+}
 
-            <div class="number">01</div>
-
-            <h3>اولین صفحه</h3>
-
-            <p>
-                اینجا جایی‌ست برای حرف‌هایی
-                که هیچ‌وقت گفته نشدند...
-            </p>
-
-        </a>
-
-        <a href="#" class="poem">
-
-            <div class="number">02</div>
-
-            <h3>جای خالی</h3>
-
-            <p>
-                بعضی آدم‌ها می‌روند،
-                اما جای خالی‌شان می‌ماند...
-            </p>
-
-        </a>
-
-        <a href="#" class="poem">
-
-            <div class="number">03</div>
-
-            <h3>ناگفته</h3>
-
-            <p>
-                بعضی حرف‌ها فقط روی کاغذ
-                جرأت متولد شدن دارند.
-            </p>
-
-        </a>
-
-        <a href="#" class="poem">
-
-            <div class="number">04</div>
-
-            <h3>ادامه دارد...</h3>
-
-            <p>
-                این دفتر هنوز تمام نشده است.
-            </p>
-
-        </a>
-
-    </section>
-
-    <section class="about">
-
-        <h2>کوچک دفتر</h2>
-
-        <p>
-            دفتر شعر و نوشته‌های
-            <br>
-            <strong>ایهام صمدی</strong>
-            <br>
-            جلال ضمدی
-        </p>
-
-    </section>
-
-</main>
-
-<footer>
-
-    <div>© کوچک دفتر</div>
-
-    <div class="footer-name">
-        ایهام صمدی · جلال ضمدی
-    </div>
-
-</footer>
+</script>
 
 </body>
 </html>
