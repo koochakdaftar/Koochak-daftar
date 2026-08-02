@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>کوچک دفتر | ایهام صمدی</title>
-<meta name="description" content="کوچک دفتر؛ دفتر شعر و نوشته‌های ایهام صمدی، جلال ضمدی">
-<meta name="author" content="ایهام صمدی - جلال ضمدی">
+
+<meta name="description" content="کوچک دفتر؛ اشعار و نوشته‌های ایهام صمدی">
+<meta name="author" content="جلال ضمدی">
 
 <style>
 *{
@@ -14,61 +16,60 @@
     box-sizing:border-box;
 }
 
-html,body{
-    width:100%;
-    min-height:100%;
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    background:#000;
-    color:#fff;
     font-family:Tahoma,Arial,sans-serif;
-    overflow:hidden;
+    overflow-x:hidden;
 }
 
 /* =========================
-   CINEMATIC INTRO
+   INTRO
 ========================= */
 
 .intro{
     position:fixed;
     inset:0;
-    width:100%;
+    z-index:50;
     height:100vh;
     height:100svh;
     overflow:hidden;
     background:
-        radial-gradient(
-            ellipse at center,
-            #11111b 0%,
-            #05050a 42%,
-            #000 100%
-        );
+        radial-gradient(circle at 50% 35%,#151522,#05050a 55%,#000);
+    color:white;
+    transition:
+        transform 1.5s cubic-bezier(.77,0,.18,1),
+        opacity 1.2s ease;
 }
 
-/* نور عظیم پشت صحنه */
+.intro.hide{
+    transform:translateY(-100%);
+    opacity:0;
+    pointer-events:none;
+}
+
+/* نور */
 
 .ambient{
     position:absolute;
-    width:75vw;
-    height:75vw;
-    max-width:700px;
-    max-height:700px;
+    width:650px;
+    height:650px;
     left:50%;
-    top:42%;
+    top:40%;
     transform:translate(-50%,-50%);
     border-radius:50%;
     background:radial-gradient(
         circle,
-        rgba(130,120,190,.12),
-        rgba(80,70,130,.05) 35%,
-        transparent 70%
+        rgba(145,135,205,.16),
+        transparent 68%
     );
     filter:blur(25px);
-    animation:ambient 8s ease-in-out infinite;
+    animation:pulse 7s ease-in-out infinite;
 }
 
-@keyframes ambient{
+@keyframes pulse{
     0%,100%{
         opacity:.45;
         transform:translate(-50%,-50%) scale(.9);
@@ -79,14 +80,11 @@ body{
     }
 }
 
-/* =========================
-   STARS
-========================= */
+/* ستاره‌ها */
 
 .stars{
     position:absolute;
     inset:0;
-    pointer-events:none;
 }
 
 .star{
@@ -94,37 +92,49 @@ body{
     width:2px;
     height:2px;
     border-radius:50%;
-    background:#fff;
-    opacity:0;
-    animation:starAppear var(--time) ease-in-out infinite;
-    animation-delay:var(--delay);
+    background:white;
+    animation:twinkle var(--t) infinite ease-in-out;
+    animation-delay:var(--d);
 }
 
-@keyframes starAppear{
+@keyframes twinkle{
     0%,100%{
-        opacity:0;
-        transform:scale(.3);
+        opacity:.1;
+        transform:scale(.4);
     }
     50%{
-        opacity:var(--opacity);
+        opacity:var(--o);
         transform:scale(1);
     }
 }
 
-/* =========================
-   MOON
-========================= */
+/* ماه */
 
 .moon-wrap{
     position:absolute;
     left:50%;
-    top:50%;
-    transform:translate(-50%,-58%);
-    width:190px;
-    height:190px;
+    top:39%;
+    width:175px;
+    height:175px;
+    transform:translate(-50%,-50%) scale(.15);
     opacity:0;
-    animation:moonReveal 3s ease forwards;
-    animation-delay:1.2s;
+    animation:moonIn 3s 1s forwards ease;
+}
+
+@keyframes moonIn{
+    0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.15);
+        filter:blur(20px);
+    }
+    60%{
+        opacity:1;
+        filter:blur(0);
+    }
+    100%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
+    }
 }
 
 .moon{
@@ -134,344 +144,433 @@ body{
     background:
         radial-gradient(
             circle at 32% 28%,
-            #fff 0%,
-            #f4f3fa 35%,
-            #d4d2df 70%,
-            #a9a6b4 100%
+            #fff,
+            #eeeeF5 45%,
+            #c5c2d0 80%,
+            #aaa7b5
         );
     box-shadow:
-        0 0 20px rgba(255,255,255,.45),
-        0 0 60px rgba(210,205,255,.25),
-        0 0 150px rgba(120,110,190,.15);
+        0 0 30px rgba(255,255,255,.5),
+        0 0 100px rgba(190,180,255,.2);
 }
 
-/* لکه های ماه */
-
-.moon::before,
 .moon::after{
     content:"";
     position:absolute;
-    border-radius:50%;
-    background:rgba(120,115,130,.10);
-}
-
-.moon::before{
     width:35px;
     height:35px;
-    top:32px;
-    left:42px;
-    box-shadow:
-        48px 30px 0 rgba(120,115,130,.08),
-        20px 82px 0 rgba(120,115,130,.09),
-        83px 78px 0 rgba(120,115,130,.07);
-}
-
-.moon::after{
-    width:22px;
-    height:22px;
-    top:105px;
-    left:52px;
-    box-shadow:
-        54px -70px 0 rgba(120,115,130,.07),
-        70px 32px 0 rgba(120,115,130,.06);
-}
-
-/* هاله ماه */
-
-.moon-glow{
-    position:absolute;
-    inset:-70px;
     border-radius:50%;
-    background:radial-gradient(
-        circle,
-        rgba(210,205,255,.12),
-        transparent 68%
-    );
-    filter:blur(12px);
-    animation:moonGlow 5s ease-in-out infinite;
+    background:rgba(100,95,110,.1);
+    top:35px;
+    left:45px;
+    box-shadow:
+        55px 25px 0 rgba(100,95,110,.07),
+        20px 80px 0 rgba(100,95,110,.08),
+        85px 75px 0 rgba(100,95,110,.06);
 }
 
-@keyframes moonGlow{
-    0%,100%{
-        opacity:.4;
-        transform:scale(.9);
-    }
-    50%{
-        opacity:1;
-        transform:scale(1.12);
-    }
-}
+/* متن ورود */
 
-@keyframes moonReveal{
-    0%{
-        opacity:0;
-        transform:translate(-50%,-58%) scale(.15);
-        filter:blur(25px);
-    }
-    60%{
-        opacity:1;
-        filter:blur(0);
-    }
-    100%{
-        opacity:1;
-        transform:translate(-50%,-58%) scale(1);
-    }
-}
-
-/* =========================
-   SHOOTING STARS
-========================= */
-
-.shooting-star{
-    position:absolute;
-    width:130px;
-    height:1px;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.8),
-        transparent
-    );
-    opacity:0;
-    transform:rotate(-28deg);
-    animation:shoot 7s linear infinite;
-}
-
-.shooting-star.one{
-    top:22%;
-    left:-20%;
-    animation-delay:4s;
-}
-
-.shooting-star.two{
-    top:35%;
-    left:-25%;
-    animation-delay:8s;
-    width:90px;
-}
-
-@keyframes shoot{
-    0%{
-        opacity:0;
-        transform:translate(0,0) rotate(-28deg);
-    }
-    5%{
-        opacity:1;
-    }
-    18%{
-        opacity:0;
-        transform:translate(150vw,55vh) rotate(-28deg);
-    }
-    100%{
-        opacity:0;
-    }
-}
-
-/* =========================
-   TEXT
-========================= */
-
-.content{
+.intro-content{
     position:absolute;
     left:50%;
-    top:50%;
-    transform:translate(-50%,85%);
+    top:63%;
     width:100%;
     text-align:center;
+    transform:translate(-50%,20px);
     opacity:0;
-    animation:textReveal 2.5s ease forwards;
-    animation-delay:3.5s;
+    animation:contentIn 2s 3.5s forwards ease;
 }
 
-@keyframes textReveal{
-    from{
-        opacity:0;
-        transform:translate(-50%,100%);
-    }
-    to{
-        opacity:1;
-        transform:translate(-50%,85%);
-    }
-}
-
-.subtitle{
-    font-size:10px;
-    letter-spacing:8px;
-    color:#77727f;
-    margin-bottom:18px;
-}
-
-.title{
-    font-size:clamp(48px,13vw,100px);
-    font-weight:300;
-    letter-spacing:7px;
-    text-shadow:
-        0 0 35px rgba(255,255,255,.08);
-}
-
-.pen{
-    margin-top:20px;
-    font-size:18px;
-    letter-spacing:5px;
-    color:#aaa6b2;
-}
-
-.real{
-    margin-top:9px;
-    color:#55515d;
-    font-size:12px;
-    letter-spacing:2px;
-}
-
-/* =========================
-   QUOTE
-========================= */
-
-.quote{
-    position:absolute;
-    left:50%;
-    bottom:14%;
-    transform:translateX(-50%);
-    width:90%;
-    max-width:650px;
-    text-align:center;
-    color:#6d6875;
-    font-size:13px;
-    line-height:2.2;
-    opacity:0;
-    animation:quoteReveal 2s ease forwards;
-    animation-delay:5.3s;
-}
-
-@keyframes quoteReveal{
-    from{
-        opacity:0;
-        transform:translate(-50%,15px);
-    }
+@keyframes contentIn{
     to{
         opacity:1;
         transform:translate(-50%,0);
     }
 }
 
-/* =========================
-   ENTER BUTTON
-========================= */
+.en{
+    font-size:10px;
+    letter-spacing:8px;
+    color:#77727e;
+    margin-bottom:18px;
+}
+
+.title{
+    font-size:clamp(50px,13vw,95px);
+    font-weight:300;
+    letter-spacing:6px;
+}
+
+.pen{
+    margin-top:18px;
+    color:#aaa6b2;
+    font-size:18px;
+    letter-spacing:5px;
+}
+
+.real{
+    margin-top:9px;
+    color:#57535e;
+    font-size:12px;
+}
+
+.quote{
+    position:absolute;
+    bottom:13%;
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+    text-align:center;
+    color:#706b77;
+    font-size:12px;
+    line-height:2.2;
+    opacity:0;
+    animation:quoteIn 2s 5s forwards;
+}
+
+@keyframes quoteIn{
+    to{
+        opacity:1;
+    }
+}
 
 .enter{
     position:absolute;
+    bottom:5%;
     left:50%;
-    bottom:6%;
     transform:translateX(-50%);
-    padding:13px 34px;
-    border:1px solid rgba(255,255,255,.18);
-    border-radius:50px;
     color:#ddd;
-    background:rgba(255,255,255,.025);
-    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:50px;
+    padding:13px 35px;
     text-decoration:none;
     font-size:13px;
     opacity:0;
-    animation:buttonReveal 2s ease forwards;
-    animation-delay:6.2s;
-    transition:.5s;
+    animation:buttonIn 2s 5.7s forwards;
+    transition:.4s;
+}
+
+@keyframes buttonIn{
+    to{
+        opacity:1;
+    }
 }
 
 .enter:hover{
-    color:#000;
-    background:#fff;
-    box-shadow:0 0 40px rgba(255,255,255,.15);
-    transform:translateX(-50%) translateY(-4px);
-}
-
-@keyframes buttonReveal{
-    from{
-        opacity:0;
-        transform:translateX(-50%) translateY(15px);
-    }
-    to{
-        opacity:1;
-        transform:translateX(-50%) translateY(0);
-    }
+    background:white;
+    color:#050505;
 }
 
 /* =========================
-   PAGE EXIT
+   INSIDE
 ========================= */
 
-.exit{
-    position:fixed;
-    inset:0;
-    z-index:100;
-    background:#000;
-    pointer-events:none;
-    opacity:0;
-    transition:1.4s ease;
+.site{
+    min-height:100vh;
+    color:#282820;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(160,145,95,.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(70,85,55,.1),
+            transparent 30%
+        ),
+        #e8e1cf;
 }
 
-body.leaving .exit{
-    opacity:1;
+/* نوار بالا */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:10;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 7%;
+
+    background:rgba(232,225,207,.88);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid rgba(70,75,50,.15);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:400;
+    color:#39412c;
+}
+
+.logo small{
+    display:block;
+    font-size:9px;
+    letter-spacing:3px;
+    color:#8a8067;
+    margin-top:3px;
+}
+
+/* منو */
+
+.nav{
+    display:flex;
+    gap:25px;
+}
+
+.nav a{
+    color:#575b48;
+    text-decoration:none;
+    font-size:12px;
+    transition:.3s;
+}
+
+.nav a:hover{
+    color:#9b7938;
+}
+
+/* قهرمان */
+
+.hero{
+    min-height:78vh;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:70px 25px;
+}
+
+.hero-symbol{
+    font-size:42px;
+    color:#9a7b42;
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-size:clamp(45px,10vw,90px);
+    font-weight:300;
+    color:#34382a;
+    letter-spacing:4px;
+}
+
+.hero .name{
+    margin-top:20px;
+    color:#68705a;
+    font-size:18px;
+    letter-spacing:4px;
+}
+
+.hero .real-name{
+    margin-top:8px;
+    color:#92886e;
+    font-size:12px;
+}
+
+.hero-line{
+    width:70px;
+    height:1px;
+    background:#a88a50;
+    margin:35px auto;
+}
+
+.hero p{
+    max-width:520px;
+    color:#77735f;
+    line-height:2.4;
+    font-size:14px;
+}
+
+/* بخش اشعار */
+
+.poems-section{
+    max-width:1100px;
+    margin:auto;
+    padding:90px 25px 120px;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.section-title span{
+    color:#a08145;
+    font-size:11px;
+    letter-spacing:4px;
+}
+
+.section-title h2{
+    margin-top:12px;
+    font-size:38px;
+    font-weight:300;
+    color:#3b4030;
+}
+
+.poems{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+}
+
+.poem{
+    position:relative;
+    min-height:250px;
+
+    padding:35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.42),
+            rgba(255,255,255,.18)
+        );
+
+    border:
+        1px solid rgba(75,78,55,.15);
+
+    border-radius:4px;
+
+    box-shadow:
+        0 15px 40px rgba(60,55,35,.07);
+
+    text-decoration:none;
+    color:#35392c;
+
+    transition:.5s;
+}
+
+.poem:hover{
+    transform:translateY(-8px) rotate(.3deg);
+    box-shadow:
+        0 25px 55px rgba(60,55,35,.13);
+    border-color:#a58b58;
+}
+
+.poem-number{
+    color:#a28650;
+    font-size:11px;
+    letter-spacing:3px;
+}
+
+.poem h3{
+    margin-top:25px;
+    font-size:25px;
+    font-weight:400;
+}
+
+.poem p{
+    margin-top:18px;
+    color:#77725f;
+    line-height:2.2;
+    font-size:13px;
+}
+
+.read{
+    position:absolute;
+    bottom:25px;
+    left:35px;
+    color:#9b7b3e;
+    font-size:11px;
+}
+
+/* درباره */
+
+.about{
+    background:#39412f;
+    color:#eee7d8;
+    padding:100px 25px;
+    text-align:center;
+}
+
+.about h2{
+    font-size:34px;
+    font-weight:300;
+}
+
+.about p{
+    max-width:600px;
+    margin:25px auto 0;
+    color:#c7c0ae;
+    line-height:2.5;
+    font-size:13px;
+}
+
+.about strong{
+    color:#e1c98d;
+    font-weight:400;
+}
+
+/* فوتر */
+
+.footer{
+    background:#2e3527;
+    color:#999783;
+    text-align:center;
+    padding:30px;
+    font-size:10px;
 }
 
 /* =========================
    MOBILE
 ========================= */
 
-@media(max-width:600px){
+@media(max-width:700px){
 
     .moon-wrap{
         width:125px;
         height:125px;
-        transform:translate(-50%,-70%);
+        top:35%;
     }
 
-    @keyframes moonReveal{
-        0%{
-            opacity:0;
-            transform:translate(-50%,-70%) scale(.15);
-            filter:blur(25px);
-        }
-        60%{
-            opacity:1;
-            filter:blur(0);
-        }
-        100%{
-            opacity:1;
-            transform:translate(-50%,-70%) scale(1);
-        }
-    }
-
-    .content{
-        transform:translate(-50%,35%);
-    }
-
-    @keyframes textReveal{
-        from{
-            opacity:0;
-            transform:translate(-50%,50%);
-        }
-        to{
-            opacity:1;
-            transform:translate(-50%,35%);
-        }
+    .intro-content{
+        top:58%;
     }
 
     .title{
-        font-size:50px;
-        letter-spacing:4px;
+        font-size:51px;
+        letter-spacing:3px;
     }
 
     .pen{
         font-size:16px;
     }
 
-    .quote{
-        bottom:18%;
-        font-size:12px;
+    .header{
+        padding:16px 20px;
     }
 
-    .enter{
-        bottom:7%;
+    .logo{
+        font-size:20px;
+    }
+
+    .nav{
+        gap:12px;
+    }
+
+    .nav a{
+        font-size:10px;
+    }
+
+    .hero{
+        min-height:70vh;
+    }
+
+    .poems{
+        grid-template-columns:1fr;
+    }
+
+    .poem{
+        min-height:220px;
     }
 }
 </style>
@@ -479,40 +578,40 @@ body.leaving .exit{
 
 <body>
 
-<div class="intro">
+<!-- =========================
+     CINEMATIC INTRO
+========================= -->
+
+<section class="intro" id="intro">
 
     <div class="ambient"></div>
 
     <div class="stars">
 
-        <span class="star" style="left:8%;top:18%;--time:5s;--delay:1s;--opacity:.8"></span>
-        <span class="star" style="left:17%;top:42%;--time:7s;--delay:2s;--opacity:.5"></span>
-        <span class="star" style="left:28%;top:16%;--time:6s;--delay:3s;--opacity:.7"></span>
-        <span class="star" style="left:39%;top:28%;--time:8s;--delay:1s;--opacity:.6"></span>
-        <span class="star" style="left:52%;top:12%;--time:5s;--delay:4s;--opacity:.8"></span>
-        <span class="star" style="left:65%;top:25%;--time:7s;--delay:2s;--opacity:.6"></span>
-        <span class="star" style="left:78%;top:16%;--time:6s;--delay:3s;--opacity:.7"></span>
-        <span class="star" style="left:91%;top:34%;--time:8s;--delay:1s;--opacity:.5"></span>
+        <span class="star" style="left:8%;top:18%;--t:5s;--d:1s;--o:.8"></span>
+        <span class="star" style="left:18%;top:45%;--t:7s;--d:2s;--o:.6"></span>
+        <span class="star" style="left:29%;top:15%;--t:6s;--d:3s;--o:.7"></span>
+        <span class="star" style="left:42%;top:27%;--t:8s;--d:1s;--o:.5"></span>
+        <span class="star" style="left:55%;top:12%;--t:5s;--d:4s;--o:.8"></span>
+        <span class="star" style="left:68%;top:25%;--t:7s;--d:2s;--o:.6"></span>
+        <span class="star" style="left:81%;top:17%;--t:6s;--d:3s;--o:.7"></span>
+        <span class="star" style="left:92%;top:35%;--t:8s;--d:1s;--o:.5"></span>
 
-        <span class="star" style="left:12%;top:70%;--time:7s;--delay:4s;--opacity:.6"></span>
-        <span class="star" style="left:25%;top:82%;--time:6s;--delay:2s;--opacity:.8"></span>
-        <span class="star" style="left:45%;top:72%;--time:8s;--delay:1s;--opacity:.5"></span>
-        <span class="star" style="left:70%;top:78%;--time:5s;--delay:3s;--opacity:.7"></span>
-        <span class="star" style="left:88%;top:68%;--time:7s;--delay:2s;--opacity:.6"></span>
+        <span class="star" style="left:12%;top:72%;--t:7s;--d:4s;--o:.6"></span>
+        <span class="star" style="left:26%;top:82%;--t:6s;--d:2s;--o:.8"></span>
+        <span class="star" style="left:47%;top:75%;--t:8s;--d:1s;--o:.5"></span>
+        <span class="star" style="left:70%;top:80%;--t:5s;--d:3s;--o:.7"></span>
+        <span class="star" style="left:88%;top:70%;--t:7s;--d:2s;--o:.6"></span>
 
     </div>
 
-    <div class="shooting-star one"></div>
-    <div class="shooting-star two"></div>
-
     <div class="moon-wrap">
-        <div class="moon-glow"></div>
         <div class="moon"></div>
     </div>
 
-    <div class="content">
+    <div class="intro-content">
 
-        <div class="subtitle">
+        <div class="en">
             A SMALL NOTEBOOK
         </div>
 
@@ -535,27 +634,215 @@ body.leaving .exit{
         اینجا نوشتم...»
     </div>
 
-    <a href="#inside" class="enter" onclick="enterSite(event)">
+    <a href="#home" class="enter" onclick="openBook(event)">
         ورود به کوچک دفتر
     </a>
 
+</section>
+
+
+<!-- =========================
+     INSIDE SITE
+========================= -->
+
+<div class="site" id="home">
+
+    <header class="header">
+
+        <div class="logo">
+            کوچک دفتر
+            <small> A SMALL NOTEBOOK </small>
+        </div>
+
+        <nav class="nav">
+            <a href="#home">خانه</a>
+            <a href="#poems">اشعار</a>
+            <a href="#about">درباره</a>
+        </nav>
+
+    </header>
+
+
+    <section class="hero">
+
+        <div class="hero-symbol">✦</div>
+
+        <h1>
+            کوچک دفتر
+        </h1>
+
+        <div class="name">
+            ایهام صمدی
+        </div>
+
+        <div class="real-name">
+            جلال ضمدی
+        </div>
+
+        <div class="hero-line"></div>
+
+        <p>
+            اینجا دفتر چیزهایی‌ست که شاید
+            نمی‌شد با صدای بلند گفت؛
+            پس کلمات را روی کاغذ گذاشتم.
+        </p>
+
+    </section>
+
+
+    <section class="poems-section" id="poems">
+
+        <div class="section-title">
+
+            <span>THE NOTEBOOK</span>
+
+            <h2>
+                اشعار
+            </h2>
+
+        </div>
+
+
+        <div class="poems">
+
+            <a class="poem" href="#poem1">
+
+                <div class="poem-number">
+                    01
+                </div>
+
+                <h3>
+                    اولین صفحه
+                </h3>
+
+                <p>
+                    اینجا جایی‌ست برای حرف‌هایی
+                    که هنوز گفته نشده‌اند...
+                </p>
+
+                <div class="read">
+                    خواندن شعر ←
+                </div>
+
+            </a>
+
+
+            <a class="poem" href="#poem2">
+
+                <div class="poem-number">
+                    02
+                </div>
+
+                <h3>
+                    جای خالی
+                </h3>
+
+                <p>
+                    بعضی آدم‌ها می‌روند،
+                    اما جای خالی‌شان می‌ماند...
+                </p>
+
+                <div class="read">
+                    خواندن شعر ←
+                </div>
+
+            </a>
+
+
+            <a class="poem" href="#poem3">
+
+                <div class="poem-number">
+                    03
+                </div>
+
+                <h3>
+                    ناگفته
+                </h3>
+
+                <p>
+                    بعضی حرف‌ها فقط روی کاغذ
+                    جرأت متولد شدن دارند.
+                </p>
+
+                <div class="read">
+                    خواندن شعر ←
+                </div>
+
+            </a>
+
+
+            <a class="poem" href="#poem4">
+
+                <div class="poem-number">
+                    04
+                </div>
+
+                <h3>
+                    ادامه دارد...
+                </h3>
+
+                <p>
+                    این دفتر هنوز تمام نشده است.
+                </p>
+
+                <div class="read">
+                    خواندن شعر ←
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <section class="about" id="about">
+
+        <h2>
+            کوچک دفتر
+        </h2>
+
+        <p>
+            دفتر شعر و نوشته‌های
+            <br>
+            <strong>ایهام صمدی</strong>
+            <br>
+            جلال ضمدی
+        </p>
+
+    </section>
+
+
+    <footer class="footer">
+
+        © کوچک دفتر
+
+        <br><br>
+
+        ایهام صمدی · جلال ضمدی
+
+    </footer>
+
 </div>
 
-<div class="exit"></div>
 
 <script>
 
-function enterSite(event){
+function openBook(event){
 
     event.preventDefault();
 
-    document.body.classList.add("leaving");
+    const intro = document.getElementById("intro");
+
+    intro.classList.add("hide");
 
     setTimeout(function(){
 
-        window.location.href = "#inside";
+        document.getElementById("home").scrollIntoView({
+            behavior:"smooth"
+        });
 
-    },1200);
+    },900);
 
 }
 
