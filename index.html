@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="کوچک دفتر؛ دفتر شعر و نوشته‌های ایهام صمدی، جلال ضمدی">
+<meta name="author" content="ایهام صمدی - جلال ضمدی">
+<title>کوچک دفتر | ایهام صمدی</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#050508;
+    color:#eee;
+    font-family:Tahoma,Arial,sans-serif;
+    overflow-x:hidden;
+}
+
+/* پس زمینه */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-3;
+    background:
+      radial-gradient(circle at 50% 20%,rgba(120,100,180,.16),transparent 28%),
+      radial-gradient(circle at 20% 80%,rgba(70,90,160,.08),transparent 30%),
+      #050508;
+}
+
+/* ستاره‌ها */
+.stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-2;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%,#fff,transparent),
+      radial-gradient(1px 1px at 70% 20%,#fff,transparent),
+      radial-gradient(1px 1px at 40% 70%,#fff,transparent),
+      radial-gradient(1px 1px at 85% 65%,#fff,transparent),
+      radial-gradient(1px 1px at 10% 85%,#fff,transparent),
+      radial-gradient(1px 1px at 55% 45%,#fff,transparent);
+    opacity:.45;
+}
+
+/* صفحه ورود */
+.intro{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    padding:30px;
+}
+
+.moon{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    background:#f1efff;
+    box-shadow:
+      0 0 35px rgba(220,215,255,.45),
+      0 0 100px rgba(150,130,255,.15);
+    margin-bottom:45px;
+    animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+.small-title{
+    font-size:14px;
+    letter-spacing:6px;
+    color:#aaa;
+    margin-bottom:20px;
+}
+
+h1{
+    font-size:clamp(45px,12vw,90px);
+    font-weight:400;
+    letter-spacing:4px;
+    margin-bottom:18px;
+}
+
+.author{
+    font-size:18px;
+    color:#aaa;
+    letter-spacing:3px;
+}
+
+.real-name{
+    margin-top:10px;
+    color:#666;
+    font-size:13px;
+}
+
+.enter{
+    margin-top:55px;
+    padding:14px 32px;
+    border:1px solid #555;
+    border-radius:50px;
+    background:rgba(255,255,255,.03);
+    color:#eee;
+    text-decoration:none;
+    transition:.4s;
+}
+
+.enter:hover{
+    background:#fff;
+    color:#050508;
+    transform:translateY(-3px);
+}
+
+/* صفحه اصلی */
+main{
+    max-width:1000px;
+    margin:auto;
+    padding:100px 22px;
+}
+
+.section-title{
+    font-size:32px;
+    font-weight:400;
+    margin-bottom:15px;
+}
+
+.line{
+    width:55px;
+    height:1px;
+    background:#777;
+    margin-bottom:45px;
+}
+
+/* کارت شعر */
+.poem{
+    display:block;
+    padding:30px 25px;
+    margin-bottom:20px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:18px;
+    background:rgba(255,255,255,.025);
+    text-decoration:none;
+    color:#eee;
+    transition:.4s;
+}
+
+.poem:hover{
+    transform:translateY(-5px);
+    border-color:rgba(255,255,255,.3);
+    background:rgba(255,255,255,.05);
+}
+
+.poem-number{
+    font-size:12px;
+    color:#666;
+    margin-bottom:12px;
+}
+
+.poem h2{
+    font-size:22px;
+    font-weight:400;
+    margin-bottom:12px;
+}
+
+.poem p{
+    color:#999;
+    line-height:2;
+}
+
+/* درباره */
+.about{
+    margin-top:120px;
+    padding:45px 30px;
+    border-top:1px solid rgba(255,255,255,.08);
+    text-align:center;
+}
+
+.about h2{
+    font-weight:400;
+    margin-bottom:20px;
+}
+
+.about p{
+    color:#999;
+    line-height:2.2;
+}
+
+/* فوتر */
+footer{
+    text-align:center;
+    padding:60px 20px;
+    color:#555;
+    font-size:12px;
+}
+
+@media(max-width:600px){
+    h1{
+        font-size:52px;
+    }
+
+    .moon{
+        width:100px;
+        height:100px;
+        margin-bottom:35px;
+    }
+
+    main{
+        padding-top:70px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<section class="intro">
+
+    <div class="moon"></div>
+
+    <div class="small-title">A SMALL NOTEBOOK</div>
+
+    <h1>کوچک دفتر</h1>
+
+    <div class="author">ایهام صمدی</div>
+
+    <div class="real-name">جلال ضمدی</div>
+
+    <a class="enter" href="#poems">ورود به دفتر</a>
+
+</section>
+
+
+<main id="poems">
+
+    <div class="section-title">اشعار</div>
+    <div class="line"></div>
+
+    <a class="poem" href="#">
+        <div class="poem-number">01</div>
+        <h2>اولین صفحه</h2>
+        <p>اینجا جایی‌ست برای حرف‌هایی که هیچ‌وقت گفته نشدند...</p>
+    </a>
+
+    <a class="poem" href="#">
+        <div class="poem-number">02</div>
+        <h2>جای خالی</h2>
+        <p>بعضی آدم‌ها می‌روند، اما جای خالی‌شان می‌ماند...</p>
+    </a>
+
+    <a class="poem" href="#">
+        <div class="poem-number">03</div>
+        <h2>ناگفته</h2>
+        <p>و بعضی حرف‌ها فقط روی کاغذ جرأت متولد شدن دارند.</p>
+    </a>
+
+
+    <section class="about">
+
+        <h2>کوچک دفتر</h2>
+
+        <p>
+            مجموعه‌ای از شعرها و نوشته‌های
+            <strong>ایهام صمدی</strong>
+            <br>
+            جلال ضمدی
+        </p>
+
+    </section>
+
+</main>
+
+
+<footer>
+    © کوچک دفتر — ایهام صمدی
+</footer>
+
+</body>
+</html>
