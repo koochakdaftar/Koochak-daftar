@@ -802,6 +802,16 @@ function enterBook(event){
 }
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+  const SUPABASE_URL = 'https://blkpfqqmzweimqjbzvzv.supabase.co';
+  const SUPABASE_KEY = 'کلید_قابل_انتشار_خودت';
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+</script>
 </body>
 </html>
