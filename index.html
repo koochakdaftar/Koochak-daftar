@@ -12,332 +12,1141 @@
 <meta name="robots" content="index, follow">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:Tahoma,Arial,sans-serif;background:#e9e1ce;color:#303426;overflow-x:hidden}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-.intro{position:fixed;inset:0;z-index:1000;min-height:100vh;background:radial-gradient(circle at 50% 38%,#1b1b2a 0%,#090910 48%,#000 100%);color:#fff;display:flex;justify-content:center;align-items:center;overflow:hidden;transition:transform 1.4s cubic-bezier(.77,0,.18,1),opacity 1.2s ease}
-.intro.hide{transform:translateY(-100%);opacity:0;pointer-events:none}
-.glow{position:absolute;width:600px;height:600px;border-radius:50%;left:50%;top:38%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(170,160,220,.16),transparent 68%);filter:blur(25px);animation:glow 7s infinite ease-in-out}
-@keyframes glow{0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(.9)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}}
-.star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:twinkle 4s infinite ease-in-out}
-@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.5)}50%{opacity:.9;transform:scale(1.3)}}
-.moon{position:absolute;width:170px;height:170px;left:50%;top:37%;transform:translate(-50%,-50%) scale(.15);border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff,#eeeeF4 45%,#c5c2ce 82%,#aaa7b4);box-shadow:0 0 35px rgba(255,255,255,.5),0 0 110px rgba(190,180,255,.2);opacity:0;animation:moonIn 3s 1s forwards ease}
-@keyframes moonIn{0%{opacity:0;transform:translate(-50%,-50%) scale(.15);filter:blur(20px)}60%{opacity:1;filter:blur(0)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
-.moon:after{content:"";position:absolute;width:35px;height:35px;border-radius:50%;background:rgba(100,95,110,.1);left:42px;top:35px;box-shadow:55px 30px 0 rgba(100,95,110,.07),20px 85px 0 rgba(100,95,110,.08),88px 76px 0 rgba(100,95,110,.06)}
-.introText{position:absolute;top:60%;left:50%;width:100%;text-align:center;transform:translate(-50%,25px);opacity:0;animation:textIn 2s 3.4s forwards ease}
-@keyframes textIn{to{opacity:1;transform:translate(-50%,0)}}
-.english{font-size:9px;letter-spacing:8px;color:#77727f;margin-bottom:18px}
-.mainTitle{font-size:clamp(48px,13vw,95px);font-weight:300;letter-spacing:5px}
-.penName{margin-top:18px;font-size:18px;letter-spacing:4px;color:#aaa6b2}
-.realName{margin-top:9px;font-size:12px;color:#5e5964}
-.quote{position:absolute;bottom:13%;left:50%;width:90%;transform:translateX(-50%);text-align:center;color:#77727d;font-size:12px;line-height:2.2;opacity:0;animation:quoteIn 2s 4.8s forwards}
-@keyframes quoteIn{to{opacity:1}}
-.enter{position:absolute;bottom:5%;left:50%;transform:translateX(-50%);padding:13px 35px;border:1px solid rgba(255,255,255,.22);border-radius:50px;background:rgba(255,255,255,.03);color:#ddd;text-decoration:none;font-size:13px;opacity:0;animation:buttonIn 2s 5.5s forwards;transition:.4s}
-@keyframes buttonIn{to{opacity:1}}
-.enter:hover{background:#fff;color:#111}
+html{
+    scroll-behavior:smooth;
+}
 
-.site{min-height:100vh;background:radial-gradient(circle at 10% 10%,rgba(165,145,90,.13),transparent 28%),radial-gradient(circle at 90% 80%,rgba(70,90,55,.10),transparent 30%),#e9e1ce}
-.header{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:18px 7%;background:rgba(233,225,206,.9);backdrop-filter:blur(15px);border-bottom:1px solid rgba(70,75,50,.14)}
-.logo{font-size:23px;color:#39412c}
-.logo small{display:block;margin-top:4px;font-size:8px;letter-spacing:3px;color:#8c8268}
-.nav{display:flex;gap:25px;align-items:center}
-.nav a{text-decoration:none;color:#626650;font-size:12px;transition:.3s}
-.nav a:hover{color:#9c7838}
-.loginButton{border:1px solid rgba(70,75,50,.25);background:rgba(255,255,255,.25);color:#4b513d;padding:8px 14px;border-radius:30px;cursor:pointer;font-family:inherit;font-size:11px;transition:.3s}
-.loginButton:hover{background:#fff;color:#9c7838}
+body{
+    font-family:Tahoma,Arial,sans-serif;
+    background:#e9e1ce;
+    color:#303426;
+    overflow-x:hidden;
+}
 
-.hero{min-height:78vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px 25px}
-.symbol{font-size:40px;color:#9b7c43;margin-bottom:22px}
-.hero h1{font-size:clamp(48px,11vw,90px);font-weight:300;letter-spacing:4px;color:#34392b}
-.hero .pen{margin-top:20px;font-size:18px;letter-spacing:4px;color:#68705a}
-.hero .real{margin-top:8px;font-size:12px;color:#91876e}
-.line{width:70px;height:1px;background:#a88950;margin:32px auto}
-.hero p{max-width:550px;color:#77735f;line-height:2.5;font-size:14px}
-.siteIntro,.seoText{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-.poems{max-width:1050px;margin:auto;padding:80px 25px 120px}
-.heading{text-align:center;margin-bottom:55px}
-.heading span{color:#a08145;font-size:10px;letter-spacing:4px}
-.heading h2{margin-top:12px;font-size:38px;font-weight:300;color:#3b4030}
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:25px}
-.card{position:relative;min-height:245px;padding:35px;background:rgba(255,255,255,.32);border:1px solid rgba(70,75,50,.14);box-shadow:0 15px 40px rgba(60,55,35,.07);transition:.5s}
-.card:hover{transform:translateY(-8px);border-color:#a58a57;box-shadow:0 25px 55px rgba(60,55,35,.13)}
-.number{color:#a28650;font-size:10px;letter-spacing:3px}
-.card h3{margin-top:23px;font-size:24px;font-weight:400;color:#383c2d}
-.card p{margin-top:16px;color:#77725f;line-height:2.2;font-size:13px}
-.read{position:absolute;bottom:25px;left:35px;color:#9b7b3e;font-size:10px}
-.read a{color:inherit;text-decoration:none}
-.about{padding:100px 25px;text-align:center;background:#3a4230;color:#eee7d8}
-.about h2{font-size:34px;font-weight:300}
-.about p{margin-top:25px;line-height:2.5;color:#c9c2b0;font-size:13px}
-.about strong{color:#e1c98d;font-weight:400}
-.footer{text-align:center;padding:30px;background:#2e3527;color:#999783;font-size:10px}
+/* =========================
+   INTRO
+========================= */
 
-.authOverlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.62);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
-.authOverlay.show{display:flex}
-.authBox{width:min(430px,100%);background:#eee7d8;color:#34392b;border:1px solid rgba(255,255,255,.35);box-shadow:0 25px 80px rgba(0,0,0,.35);padding:35px;border-radius:18px;text-align:right}
-.authBox h2{font-weight:400;font-size:26px;margin-bottom:10px}
-.authBox p{font-size:12px;color:#77725f;line-height:2;margin-bottom:20px}
-.authBox label{display:block;font-size:11px;margin-bottom:7px;color:#555a47}
-.authBox input{width:100%;padding:13px;border:1px solid rgba(70,75,50,.2);background:#f8f4ea;border-radius:9px;font-family:inherit;outline:none;margin-bottom:12px;direction:ltr;text-align:left}
-.authActions{display:flex;gap:10px}
-.authActions button{flex:1;padding:12px;border-radius:9px;border:0;font-family:inherit;cursor:pointer}
-.authPrimary{background:#3a4230;color:#fff}
-.authSecondary{background:#ddd5c4;color:#3a4230}
-.authMessage{min-height:25px;margin-top:14px;font-size:11px;color:#80642f}
-.closeAuth{float:left;border:0;background:transparent;font-size:22px;cursor:pointer;color:#555a47}
-#otpStep{display:none}
-.userStatus{display:none;font-size:10px;color:#77725f;margin-right:5px}
+.intro{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 50% 38%,#1b1b2a 0%,#090910 48%,#000 100%);
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    transition:
+        transform 1.4s cubic-bezier(.77,0,.18,1),
+        opacity 1.2s ease;
+}
+
+.intro.hide{
+    transform:translateY(-100%);
+    opacity:0;
+    pointer-events:none;
+}
+
+.glow{
+    position:absolute;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    left:50%;
+    top:38%;
+    transform:translate(-50%,-50%);
+    background:
+        radial-gradient(circle,rgba(170,160,220,.16),transparent 68%);
+    filter:blur(25px);
+    animation:glow 7s infinite ease-in-out;
+}
+
+@keyframes glow{
+    0%,100%{
+        opacity:.4;
+        transform:translate(-50%,-50%) scale(.9);
+    }
+
+    50%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1.15);
+    }
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    border-radius:50%;
+    background:#fff;
+    animation:twinkle 4s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+    0%,100%{
+        opacity:.15;
+        transform:scale(.5);
+    }
+
+    50%{
+        opacity:.9;
+        transform:scale(1.3);
+    }
+}
+
+.moon{
+    position:absolute;
+    width:170px;
+    height:170px;
+    left:50%;
+    top:37%;
+    transform:translate(-50%,-50%) scale(.15);
+    border-radius:50%;
+    background:
+        radial-gradient(circle at 32% 28%,#fff,#eeeeF4 45%,#c5c2ce 82%,#aaa7b4);
+    box-shadow:
+        0 0 35px rgba(255,255,255,.5),
+        0 0 110px rgba(190,180,255,.2);
+    opacity:0;
+    animation:moonIn 3s 1s forwards ease;
+}
+
+@keyframes moonIn{
+    0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.15);
+        filter:blur(20px);
+    }
+
+    60%{
+        opacity:1;
+        filter:blur(0);
+    }
+
+    100%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
+    }
+}
+
+.moon:after{
+    content:"";
+    position:absolute;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:rgba(100,95,110,.1);
+    left:42px;
+    top:35px;
+    box-shadow:
+        55px 30px 0 rgba(100,95,110,.07),
+        20px 85px 0 rgba(100,95,110,.08),
+        88px 76px 0 rgba(100,95,110,.06);
+}
+
+.introText{
+    position:absolute;
+    top:60%;
+    left:50%;
+    width:100%;
+    text-align:center;
+    transform:translate(-50%,25px);
+    opacity:0;
+    animation:textIn 2s 3.4s forwards ease;
+}
+
+@keyframes textIn{
+    to{
+        opacity:1;
+        transform:translate(-50%,0);
+    }
+}
+
+.english{
+    font-size:9px;
+    letter-spacing:8px;
+    color:#77727f;
+    margin-bottom:18px;
+}
+
+.mainTitle{
+    font-size:clamp(48px,13vw,95px);
+    font-weight:300;
+    letter-spacing:5px;
+}
+
+.penName{
+    margin-top:18px;
+    font-size:18px;
+    letter-spacing:4px;
+    color:#aaa6b2;
+}
+
+.realName{
+    margin-top:9px;
+    font-size:12px;
+    color:#5e5964;
+}
+
+.quote{
+    position:absolute;
+    bottom:13%;
+    left:50%;
+    width:90%;
+    transform:translateX(-50%);
+    text-align:center;
+    color:#77727d;
+    font-size:12px;
+    line-height:2.2;
+    opacity:0;
+    animation:quoteIn 2s 4.8s forwards;
+}
+
+@keyframes quoteIn{
+    to{
+        opacity:1;
+    }
+}
+
+.enter{
+    position:absolute;
+    bottom:5%;
+    left:50%;
+    transform:translateX(-50%);
+    padding:13px 35px;
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:50px;
+    background:rgba(255,255,255,.03);
+    color:#ddd;
+    text-decoration:none;
+    font-size:13px;
+    opacity:0;
+    animation:buttonIn 2s 5.5s forwards;
+    transition:.4s;
+}
+
+@keyframes buttonIn{
+    to{
+        opacity:1;
+    }
+}
+
+.enter:hover{
+    background:#fff;
+    color:#111;
+}
+
+/* =========================
+   SITE
+========================= */
+
+.site{
+    min-height:100vh;
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(165,145,90,.13),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(70,90,55,.10),
+            transparent 30%
+        ),
+        #e9e1ce;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 7%;
+    background:rgba(233,225,206,.9);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(70,75,50,.14);
+}
+
+.logo{
+    font-size:23px;
+    color:#39412c;
+}
+
+.logo small{
+    display:block;
+    margin-top:4px;
+    font-size:8px;
+    letter-spacing:3px;
+    color:#8c8268;
+}
+
+.nav{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+.nav a{
+    text-decoration:none;
+    color:#626650;
+    font-size:12px;
+    transition:.3s;
+}
+
+.nav a:hover{
+    color:#9c7838;
+}
+
+.loginButton{
+    border:1px solid rgba(70,75,50,.25);
+    background:rgba(255,255,255,.25);
+    color:#4b513d;
+    padding:8px 14px;
+    border-radius:30px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:11px;
+    transition:.3s;
+}
+
+.loginButton:hover{
+    background:#fff;
+    color:#9c7838;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:78vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:70px 25px;
+}
+
+.symbol{
+    font-size:40px;
+    color:#9b7c43;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:clamp(48px,11vw,90px);
+    font-weight:300;
+    letter-spacing:4px;
+    color:#34392b;
+}
+
+.hero .pen{
+    margin-top:20px;
+    font-size:18px;
+    letter-spacing:4px;
+    color:#68705a;
+}
+
+.hero .real{
+    margin-top:8px;
+    font-size:12px;
+    color:#91876e;
+}
+
+.line{
+    width:70px;
+    height:1px;
+    background:#a88950;
+    margin:32px auto;
+}
+
+.hero p{
+    max-width:550px;
+    color:#77735f;
+    line-height:2.5;
+    font-size:14px;
+}
+
+.siteIntro,
+.seoText{
+    position:absolute;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+}
+
+/* =========================
+   POEMS
+========================= */
+
+.poems{
+    max-width:1050px;
+    margin:auto;
+    padding:80px 25px 120px;
+}
+
+.heading{
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.heading span{
+    color:#a08145;
+    font-size:10px;
+    letter-spacing:4px;
+}
+
+.heading h2{
+    margin-top:12px;
+    font-size:38px;
+    font-weight:300;
+    color:#3b4030;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+}
+
+.card{
+    position:relative;
+    min-height:245px;
+    padding:35px;
+    background:rgba(255,255,255,.32);
+    border:1px solid rgba(70,75,50,.14);
+    box-shadow:0 15px 40px rgba(60,55,35,.07);
+    transition:.5s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:#a58a57;
+    box-shadow:0 25px 55px rgba(60,55,35,.13);
+}
+
+.number{
+    color:#a28650;
+    font-size:10px;
+    letter-spacing:3px;
+}
+
+.card h3{
+    margin-top:23px;
+    font-size:24px;
+    font-weight:400;
+    color:#383c2d;
+}
+
+.card p{
+    margin-top:16px;
+    color:#77725f;
+    line-height:2.2;
+    font-size:13px;
+}
+
+.read{
+    position:absolute;
+    bottom:25px;
+    left:35px;
+    color:#9b7b3e;
+    font-size:10px;
+}
+
+.read a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+    padding:100px 25px;
+    text-align:center;
+    background:#3a4230;
+    color:#eee7d8;
+}
+
+.about h2{
+    font-size:34px;
+    font-weight:300;
+}
+
+.about p{
+    margin-top:25px;
+    line-height:2.5;
+    color:#c9c2b0;
+    font-size:13px;
+}
+
+.about strong{
+    color:#e1c98d;
+    font-weight:400;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    text-align:center;
+    padding:30px;
+    background:#2e3527;
+    color:#999783;
+    font-size:10px;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.authOverlay{
+    position:fixed;
+    inset:0;
+    z-index:2000;
+    background:rgba(0,0,0,.62);
+    backdrop-filter:blur(8px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.authOverlay.show{
+    display:flex;
+}
+
+.authBox{
+    width:min(430px,100%);
+    background:#eee7d8;
+    color:#34392b;
+    border:1px solid rgba(255,255,255,.35);
+    box-shadow:0 25px 80px rgba(0,0,0,.35);
+    padding:35px;
+    border-radius:18px;
+    text-align:right;
+}
+
+.authBox h2{
+    font-weight:400;
+    font-size:26px;
+    margin-bottom:10px;
+}
+
+.authBox p{
+    font-size:12px;
+    color:#77725f;
+    line-height:2;
+    margin-bottom:20px;
+}
+
+.authBox label{
+    display:block;
+    font-size:11px;
+    margin-bottom:7px;
+    color:#555a47;
+}
+
+.authBox input{
+    width:100%;
+    padding:13px;
+    border:1px solid rgba(70,75,50,.2);
+    background:#f8f4ea;
+    border-radius:9px;
+    font-family:inherit;
+    outline:none;
+    margin-bottom:12px;
+    direction:ltr;
+    text-align:left;
+}
+
+.authBox input:focus{
+    border-color:#9b7b3e;
+    box-shadow:0 0 0 3px rgba(155,123,62,.10);
+}
+
+.authActions{
+    display:flex;
+    gap:10px;
+}
+
+.authActions button{
+    flex:1;
+    padding:12px;
+    border-radius:9px;
+    border:0;
+    font-family:inherit;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.authActions button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+.authPrimary{
+    background:#3a4230;
+    color:#fff;
+}
+
+.authPrimary:hover{
+    background:#293022;
+}
+
+.authSecondary{
+    background:#ddd5c4;
+    color:#3a4230;
+}
+
+.authSecondary:hover{
+    background:#d0c6b2;
+}
+
+.authMessage{
+    min-height:25px;
+    margin-top:14px;
+    font-size:11px;
+    color:#80642f;
+    line-height:1.8;
+}
+
+.closeAuth{
+    float:left;
+    border:0;
+    background:transparent;
+    font-size:22px;
+    cursor:pointer;
+    color:#555a47;
+}
+
+/* OTP */
+#otpStep{
+    display:none;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:700px){
-.moon{width:125px;height:125px;top:34%}
-.introText{top:57%}
-.mainTitle{font-size:50px}
-.penName{font-size:16px}
-.header{padding:16px 20px}
-.logo{font-size:19px}
-.nav{gap:10px}
-.nav a{font-size:10px}
-.cards{grid-template-columns:1fr}
-.loginButton{padding:7px 10px}
+
+    .moon{
+        width:125px;
+        height:125px;
+        top:34%;
+    }
+
+    .introText{
+        top:57%;
+    }
+
+    .mainTitle{
+        font-size:50px;
+    }
+
+    .penName{
+        font-size:16px;
+    }
+
+    .header{
+        padding:16px 20px;
+    }
+
+    .logo{
+        font-size:19px;
+    }
+
+    .nav{
+        gap:10px;
+    }
+
+    .nav a{
+        font-size:10px;
+    }
+
+    .loginButton{
+        padding:7px 10px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .authBox{
+        padding:25px 20px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- =========================
+     INTRO
+========================= -->
+
 <section class="intro" id="intro">
-<div class="glow"></div>
-<span class="star" style="left:8%;top:18%;"></span>
-<span class="star" style="left:17%;top:42%;animation-delay:1s;"></span>
-<span class="star" style="left:28%;top:14%;animation-delay:2s;"></span>
-<span class="star" style="left:40%;top:27%;animation-delay:1.5s;"></span>
-<span class="star" style="left:53%;top:12%;animation-delay:2.5s;"></span>
-<span class="star" style="left:66%;top:23%;animation-delay:1s;"></span>
-<span class="star" style="left:80%;top:16%;animation-delay:3s;"></span>
-<span class="star" style="left:91%;top:35%;animation-delay:1.5s;"></span>
-<span class="star" style="left:12%;top:72%;animation-delay:2s;"></span>
-<span class="star" style="left:26%;top:82%;animation-delay:1s;"></span>
-<span class="star" style="left:47%;top:75%;animation-delay:3s;"></span>
-<span class="star" style="left:70%;top:80%;animation-delay:2s;"></span>
-<span class="star" style="left:88%;top:70%;animation-delay:1s;"></span>
-<div class="moon"></div>
-<div class="introText">
-<div class="english">A SMALL NOTEBOOK</div>
-<h1 class="mainTitle">کوچک دفتر</h1>
-<div class="penName">ایهام صمدی</div>
-<div class="realName">جلال ضمدی</div>
-</div>
-<div class="quote">«هر آنچه نتوانستم بگویم، اینجا نوشتم...»</div>
-<a href="#home" class="enter" onclick="enterBook(event)">ورود به کوچک دفتر</a>
+
+    <div class="glow"></div>
+
+    <span class="star" style="left:8%;top:18%;"></span>
+    <span class="star" style="left:17%;top:42%;animation-delay:1s;"></span>
+    <span class="star" style="left:28%;top:14%;animation-delay:2s;"></span>
+    <span class="star" style="left:40%;top:27%;animation-delay:1.5s;"></span>
+    <span class="star" style="left:53%;top:12%;animation-delay:2.5s;"></span>
+    <span class="star" style="left:66%;top:23%;animation-delay:1s;"></span>
+    <span class="star" style="left:80%;top:16%;animation-delay:3s;"></span>
+    <span class="star" style="left:91%;top:35%;animation-delay:1.5s;"></span>
+    <span class="star" style="left:12%;top:72%;animation-delay:2s;"></span>
+    <span class="star" style="left:26%;top:82%;animation-delay:1s;"></span>
+    <span class="star" style="left:47%;top:75%;animation-delay:3s;"></span>
+    <span class="star" style="left:70%;top:80%;animation-delay:2s;"></span>
+    <span class="star" style="left:88%;top:70%;animation-delay:1s;"></span>
+
+    <div class="moon"></div>
+
+    <div class="introText">
+        <div class="english">A SMALL NOTEBOOK</div>
+
+        <h1 class="mainTitle">کوچک دفتر</h1>
+
+        <div class="penName">ایهام صمدی</div>
+
+        <div class="realName">جلال ضمدی</div>
+    </div>
+
+    <div class="quote">
+        «هر آنچه نتوانستم بگویم، اینجا نوشتم...»
+    </div>
+
+    <a href="#home" class="enter" onclick="enterBook(event)">
+        ورود به کوچک دفتر
+    </a>
+
 </section>
+
+
+<!-- =========================
+     MAIN SITE
+========================= -->
 
 <main class="site" id="home">
+
 <header class="header">
-<div class="logo">کوچک دفتر<small>A SMALL NOTEBOOK</small></div>
-<nav class="nav">
-<a href="#home">خانه</a>
-<a href="poems.html">اشعار</a>
-<a href="#about">درباره من</a>
-<span id="userStatus" class="userStatus"></span>
-<button class="loginButton" id="loginButton" type="button">ورود</button>
-</nav>
+
+    <div class="logo">
+        کوچک دفتر
+        <small>A SMALL NOTEBOOK</small>
+    </div>
+
+    <nav class="nav">
+
+        <a href="#home">خانه</a>
+
+        <a href="poems.html">اشعار</a>
+
+        <a href="#about">درباره من</a>
+
+        <button
+            class="loginButton"
+            id="loginButton"
+            type="button">
+            ورود
+        </button>
+
+    </nav>
+
 </header>
 
+
+<!-- HERO -->
+
 <section class="hero">
-<div class="symbol">✦</div>
-<h1>کوچک دفتر</h1>
-<p class="siteIntro">کوچک دفتر؛ دفتر شعر و نوشته‌های ایهام صمدی</p>
-<div class="pen">ایهام صمدی</div>
-<div class="real">جلال ضمدی</div>
-<div class="seoText">کوچک دفتر؛ دفتر شعر و نوشته‌های ایهام صمدی</div>
-<div class="line"></div>
-<p>جایی برای تمام حرف‌هایی که شاید هیچ‌وقت گفته نشدند؛ برای کلماتی که ماندند، و برای شعرهایی که از دل آمدند.</p>
+
+    <div class="symbol">✦</div>
+
+    <h1>کوچک دفتر</h1>
+
+    <p class="siteIntro">
+        کوچک دفتر؛ دفتر شعر و نوشته‌های ایهام صمدی
+    </p>
+
+    <div class="pen">
+        ایهام صمدی
+    </div>
+
+    <div class="real">
+        جلال ضمدی
+    </div>
+
+    <div class="seoText">
+        کوچک دفتر؛ دفتر شعر و نوشته‌های ایهام صمدی
+    </div>
+
+    <div class="line"></div>
+
+    <p>
+        جایی برای تمام حرف‌هایی که شاید هیچ‌وقت گفته نشدند؛
+        برای کلماتی که ماندند، و برای شعرهایی که از دل آمدند.
+    </p>
+
 </section>
+
+
+<!-- POEMS -->
 
 <section class="poems" id="poems">
-<div class="heading"><span>THE NOTEBOOK</span><h2>اشعار</h2></div>
-<div class="cards">
-<article class="card">
-<div class="number">01</div>
-<h3>اولین صفحه</h3>
-<p>اینجا اولین صفحه‌ی دفتر است؛ جایی برای اولین حرفی که قرار است نوشته شود...</p>
-<div class="read"><a href="./poem-01.html">خواندن</a></div>
-</article>
-<article class="card">
-<div class="number">02</div>
-<h3>جای خالی</h3>
-<p>بعضی آدم‌ها از زندگی می‌روند، اما جای خالی‌شان هیچ‌وقت از دفتر پاک نمی‌شود.</p>
-<div class="read">به‌زودی</div>
-</article>
-<article class="card">
-<div class="number">03</div>
-<h3>ناگفته</h3>
-<p>بعضی حرف‌ها برای گفتن نیستند؛ باید نوشته شوند تا بمانند.</p>
-<div class="read">به‌زودی</div>
-</article>
-<article class="card">
-<div class="number">04</div>
-<h3>ادامه دارد...</h3>
-<p>این دفتر هنوز تمام نشده. شاید بهترین صفحه‌اش هنوز نوشته نشده باشد.</p>
-<div class="read">به‌زودی</div>
-</article>
-</div>
+
+    <div class="heading">
+
+        <span>THE NOTEBOOK</span>
+
+        <h2>اشعار</h2>
+
+    </div>
+
+    <div class="cards">
+
+        <article class="card">
+
+            <div class="number">01</div>
+
+            <h3>اولین صفحه</h3>
+
+            <p>
+                اینجا اولین صفحه‌ی دفتر است؛
+                جایی برای اولین حرفی که قرار است نوشته شود...
+            </p>
+
+            <div class="read">
+                <a href="./poem-01.html">خواندن</a>
+            </div>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="number">02</div>
+
+            <h3>جای خالی</h3>
+
+            <p>
+                بعضی آدم‌ها از زندگی می‌روند،
+                اما جای خالی‌شان هیچ‌وقت از دفتر پاک نمی‌شود.
+            </p>
+
+            <div class="read">
+                به‌زودی
+            </div>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="number">03</div>
+
+            <h3>ناگفته</h3>
+
+            <p>
+                بعضی حرف‌ها برای گفتن نیستند؛
+                باید نوشته شوند تا بمانند.
+            </p>
+
+            <div class="read">
+                به‌زودی
+            </div>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="number">04</div>
+
+            <h3>ادامه دارد...</h3>
+
+            <p>
+                این دفتر هنوز تمام نشده.
+                شاید بهترین صفحه‌اش هنوز نوشته نشده باشد.
+            </p>
+
+            <div class="read">
+                به‌زودی
+            </div>
+
+        </article>
+
+    </div>
+
 </section>
+
+
+<!-- ABOUT -->
 
 <section class="about" id="about">
-<h2>درباره کوچک دفتر</h2>
-<p>دفتر شخصی<br><strong>ایهام صمدی</strong><br><br>نام واقعی:<br><strong>جلال ضمدی</strong></p>
+
+    <h2>درباره کوچک دفتر</h2>
+
+    <p>
+        دفتر شخصی
+        <br>
+        <strong>ایهام صمدی</strong>
+        <br><br>
+        نام واقعی:
+        <br>
+        <strong>جلال ضمدی</strong>
+    </p>
+
 </section>
 
-<footer class="footer">© کوچک دفتر<br><br>ایهام صمدی · جلال ضمدی</footer>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    © کوچک دفتر
+
+    <br><br>
+
+    ایهام صمدی · جلال ضمدی
+
+</footer>
+
 </main>
 
+
+<!-- =========================
+     LOGIN WINDOW
+========================= -->
+
 <div class="authOverlay" id="authOverlay">
-<div class="authBox">
-<button class="closeAuth" id="closeAuth" type="button">×</button>
-<h2>ورود به کوچک دفتر</h2>
-<p id="authIntro">ایمیل خودت را وارد کن تا کد ورود برایت ارسال شود.</p>
 
-<div id="emailStep">
-<label for="emailInput">ایمیل</label>
-<input id="emailInput" type="email" autocomplete="email" placeholder="name@example.com">
-<div class="authActions">
-<button class="authPrimary" id="sendOtpButton" type="button">ارسال کد ورود</button>
-<button class="authSecondary" id="cancelEmailButton" type="button">بستن</button>
-</div>
+    <div class="authBox">
+
+        <button
+            class="closeAuth"
+            id="closeAuth"
+            type="button">
+            ×
+        </button>
+
+        <h2>ورود به کوچک دفتر</h2>
+
+        <p id="authIntro">
+            ایمیل خودت را وارد کن تا کد ورود برایت ارسال شود.
+        </p>
+
+
+        <!-- EMAIL -->
+
+        <div id="emailStep">
+
+            <label for="emailInput">
+                ایمیل
+            </label>
+
+            <input
+                id="emailInput"
+                type="email"
+                autocomplete="email"
+                placeholder="name@example.com">
+
+            <div class="authActions">
+
+                <button
+                    class="authPrimary"
+                    id="sendOtpButton"
+                    type="button">
+                    ارسال کد ورود
+                </button>
+
+                <button
+                    class="authSecondary"
+                    id="cancelEmailButton"
+                    type="button">
+                    بستن
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- OTP -->
+
+        <div id="otpStep">
+
+            <label for="otpInput">
+                کد ورود
+            </label>
+
+            <input
+                id="otpInput"
+                type="text"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                maxlength="6"
+                placeholder="کد ۶ رقمی">
+
+            <div class="authActions">
+
+                <button
+                    class="authPrimary"
+                    id="verifyOtpButton"
+                    type="button">
+                    تأیید و ورود
+                </button>
+
+                <button
+                    class="authSecondary"
+                    id="backEmailButton"
+                    type="button">
+                    بازگشت
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="authMessage"
+            id="authMessage">
+        </div>
+
+    </div>
+
 </div>
 
-<div id="otpStep">
-<label for="otpInput">کد ورود</label>
-<input id="otpInput" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="کد ارسال‌شده">
-<div class="authActions">
-<button class="authPrimary" id="verifyOtpButton" type="button">تأیید و ورود</button>
-<button class="authSecondary" id="backEmailButton" type="button">بازگشت</button>
-</div>
-</div>
 
-<div class="authMessage" id="authMessage"></div>
-</div>
-</div>
+<!-- =========================
+     SUPABASE
+========================= -->
 
-verifyOtpButton.addEventListener("click",async function(){
-const token=otpInput.value.trim();
-if(!pendingEmail||!token){authMessage.textContent="ایمیل و کد ورود را وارد کن.";return;}
-verifyOtpButton.disabled=true;
-authMessage.textContent="در حال بررسی کد...";
-const {data,error}=await supabaseClient.auth.verifyOtp({
-email:pendingEmail,
-token:token,
-type:"email"
-});
-verifyOtpButton.disabled=false;
-if(error){
-authMessage.textContent="کد صحیح نیست یا منقضی شده است.";
-return;
-}
-authMessage.textContent="ورود با موفقیت انجام شد.";
-if(data.user){
-userStatus.textContent="وارد شده";
-userStatus.style.display="inline";
-loginButton.textContent="خروج";
-loginButton.onclick=async function(){
-await supabaseClient.auth.signOut();
-userStatus.style.display="none";
-loginButton.textContent="ورود";
-loginButton.onclick=openAuth;
-};
-}
-setTimeout(closeAuthBox,900);
-});
-
-supabaseClient.auth.getSession().then(({data})=>{
-if(data.session){
-userStatus.textContent="وارد شده";
-userStatus.style.display="inline";
-loginButton.textContent="خروج";
-loginButton.onclick=async function(){
-await supabaseClient.auth.signOut();
-userStatus.style.display="none";
-loginButton.textContent="ورود";
-loginButton.onclick=openAuth;
-};
-}
-});
-</script>
-</body>
-</html>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-function enterBook(event) {
+
+/* =========================
+   INTRO
+========================= */
+
+function enterBook(event){
+
     event.preventDefault();
 
     const intro = document.getElementById("intro");
 
-    if (intro) {
+    if(intro){
+
         intro.classList.add("hide");
 
-        setTimeout(function () {
+        setTimeout(function(){
+
             window.scrollTo({
-                top: 0,
-                behavior: "smooth"
+                top:0,
+                behavior:"smooth"
             });
-        }, 700);
+
+        },700);
+
     }
 }
 
 
 /* =========================
-   اتصال به Supabase
+   SUPABASE
 ========================= */
 
-const SUPABASE_URL = "https://blkpfqqmzweimqjbzvzv.supabase.co";
+const SUPABASE_URL =
+    "https://blkpfqqmzweimqjbzvzv.supabase.co";
 
-const SUPABASE_KEY = "sb_publishable_3V2kO61G1wKpiAM_TIRyzQ_bOXO3Tgt";
+const SUPABASE_KEY =
+    "sb_publishable_3V2kO61G1wKpiAM_TIRyzQ_bOXO3Tgt";
 
-const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
 /* =========================
-   عناصر ورود
+   ELEMENTS
 ========================= */
 
-const authOverlay = document.getElementById("authOverlay");
-const loginButton = document.getElementById("loginButton");
+const authOverlay =
+    document.getElementById("authOverlay");
 
-const closeAuth = document.getElementById("closeAuth");
-const cancelEmailButton = document.getElementById("cancelEmailButton");
-const backEmailButton = document.getElementById("backEmailButton");
+const loginButton =
+    document.getElementById("loginButton");
 
-const emailStep = document.getElementById("emailStep");
-const otpStep = document.getElementById("otpStep");
+const closeAuth =
+    document.getElementById("closeAuth");
 
-const emailInput = document.getElementById("emailInput");
-const otpInput = document.getElementById("otpInput");
+const cancelEmailButton =
+    document.getElementById("cancelEmailButton");
 
-const sendOtpButton = document.getElementById("sendOtpButton");
-const verifyOtpButton = document.getElementById("verifyOtpButton");
+const backEmailButton =
+    document.getElementById("backEmailButton");
 
-const authMessage = document.getElementById("authMessage");
-const authIntro = document.getElementById("authIntro");
+const emailStep =
+    document.getElementById("emailStep");
 
-const userStatus = document.getElementById("userStatus");
+const otpStep =
+    document.getElementById("otpStep");
+
+const emailInput =
+    document.getElementById("emailInput");
+
+const otpInput =
+    document.getElementById("otpInput");
+
+const sendOtpButton =
+    document.getElementById("sendOtpButton");
+
+const verifyOtpButton =
+    document.getElementById("verifyOtpButton");
+
+const authMessage =
+    document.getElementById("authMessage");
+
+const authIntro =
+    document.getElementById("authIntro");
+
 
 let pendingEmail = "";
 
 
 /* =========================
-   باز کردن پنجره ورود
+   OPEN LOGIN
 ========================= */
 
-function openAuth() {
+function openAuth(){
 
     authOverlay.classList.add("show");
 
     emailStep.style.display = "block";
+
     otpStep.style.display = "none";
 
     authMessage.textContent = "";
@@ -345,310 +1154,419 @@ function openAuth() {
     authIntro.textContent =
         "ایمیل خودت را وارد کن تا کد ورود برایت ارسال شود.";
 
-    emailInput.focus();
+    setTimeout(function(){
+
+        emailInput.focus();
+
+    },100);
+
 }
 
 
 /* =========================
-   بستن پنجره ورود
+   CLOSE LOGIN
 ========================= */
 
-function closeAuthBox() {
+function closeAuthBox(){
 
     authOverlay.classList.remove("show");
 
+    emailInput.value = "";
+
+    otpInput.value = "";
+
+    pendingEmail = "";
+
+    authMessage.textContent = "";
+
 }
 
 
 /* =========================
-   دکمه ورود
+   LOGIN BUTTON
 ========================= */
 
-loginButton.addEventListener("click", function () {
+loginButton.addEventListener(
+    "click",
+    function(){
 
-    openAuth();
+        if(loginButton.textContent.trim() === "خروج"){
 
-});
+            logoutUser();
 
+        }else{
 
-/* =========================
-   بستن
-========================= */
+            openAuth();
 
-closeAuth.addEventListener("click", function () {
-
-    closeAuthBox();
-
-});
-
-cancelEmailButton.addEventListener("click", function () {
-
-    closeAuthBox();
-
-});
-
-
-/* =========================
-   بازگشت از OTP
-========================= */
-
-backEmailButton.addEventListener("click", function () {
-
-    otpStep.style.display = "none";
-
-    emailStep.style.display = "block";
-
-    authMessage.textContent = "";
-
-    emailInput.focus();
-
-});
-
-
-/* =========================
-   ارسال کد ایمیل
-========================= */
-
-sendOtpButton.addEventListener("click", async function () {
-
-    const email = emailInput.value.trim();
-
-    if (!email) {
-
-        authMessage.textContent =
-            "لطفاً ایمیل را وارد کن.";
-
-        return;
+        }
 
     }
+);
 
 
-    sendOtpButton.disabled = true;
+/* =========================
+   CLOSE BUTTONS
+========================= */
 
-    authMessage.textContent =
-        "در حال ارسال کد...";
+closeAuth.addEventListener(
+    "click",
+    closeAuthBox
+);
 
-
-    try {
-
-        const { error } =
-            await supabaseClient.auth.signInWithOtp({
-
-                email: email,
-
-                options: {
-                    shouldCreateUser: true
-                }
-
-            });
+cancelEmailButton.addEventListener(
+    "click",
+    closeAuthBox
+);
 
 
-        if (error) {
+/* =========================
+   BACK
+========================= */
+
+backEmailButton.addEventListener(
+    "click",
+    function(){
+
+        otpStep.style.display = "none";
+
+        emailStep.style.display = "block";
+
+        authMessage.textContent = "";
+
+        emailInput.focus();
+
+    }
+);
+
+
+/* =========================
+   SEND OTP
+========================= */
+
+sendOtpButton.addEventListener(
+    "click",
+    async function(){
+
+        const email =
+            emailInput.value.trim();
+
+        if(!email){
 
             authMessage.textContent =
-                "ارسال کد انجام نشد: " + error.message;
+                "لطفاً ایمیل را وارد کن.";
 
-            sendOtpButton.disabled = false;
+            emailInput.focus();
 
             return;
 
         }
 
 
-        pendingEmail = email;
-
-
-        emailStep.style.display = "none";
-
-        otpStep.style.display = "block";
-
-
-        authIntro.textContent =
-            "کد ارسال‌شده به ایمیل را وارد کن.";
+        sendOtpButton.disabled = true;
 
         authMessage.textContent =
-            "کد ورود به ایمیل شما ارسال شد.";
-
-        otpInput.focus();
+            "در حال ارسال کد ورود...";
 
 
-    } catch (error) {
+        try{
 
-        authMessage.textContent =
-            "خطایی در اتصال به سرویس ورود رخ داد.";
+            const {error} =
+                await supabaseClient.auth.signInWithOtp({
+
+                    email:email,
+
+                    options:{
+                        shouldCreateUser:true
+                    }
+
+                });
+
+
+            if(error){
+
+                authMessage.textContent =
+                    "ارسال کد انجام نشد. دوباره امتحان کن.";
+
+                sendOtpButton.disabled = false;
+
+                return;
+
+            }
+
+
+            pendingEmail = email;
+
+
+            emailStep.style.display = "none";
+
+            otpStep.style.display = "block";
+
+
+            authIntro.textContent =
+                "کد ارسال‌شده به ایمیل را همین‌جا وارد کن.";
+
+            authMessage.textContent =
+                "کد ورود ارسال شد ✓";
+
+            otpInput.focus();
+
+
+        }catch(error){
+
+            console.error(error);
+
+            authMessage.textContent =
+                "خطایی در ارسال کد رخ داد.";
+
+        }
+
+
+        sendOtpButton.disabled = false;
 
     }
-
-
-    sendOtpButton.disabled = false;
-
-});
+);
 
 
 /* =========================
-   تأیید کد OTP
+   VERIFY OTP
 ========================= */
 
-verifyOtpButton.addEventListener("click", async function () {
+verifyOtpButton.addEventListener(
+    "click",
+    async function(){
 
-    const token = otpInput.value.trim();
-
-
-    if (!pendingEmail || !token) {
-
-        authMessage.textContent =
-            "ایمیل و کد ورود را وارد کن.";
-
-        return;
-
-    }
+        const token =
+            otpInput.value.trim();
 
 
-    verifyOtpButton.disabled = true;
-
-    authMessage.textContent =
-        "در حال بررسی کد...";
-
-
-    try {
-
-        const { data, error } =
-            await supabaseClient.auth.verifyOtp({
-
-                email: pendingEmail,
-
-                token: token,
-
-                type: "email"
-
-            });
-
-
-        if (error) {
+        if(!pendingEmail){
 
             authMessage.textContent =
-                "کد صحیح نیست یا منقضی شده است.";
-
-            verifyOtpButton.disabled = false;
+                "ابتدا ایمیل را وارد کن.";
 
             return;
 
         }
 
 
+        if(!token){
+
+            authMessage.textContent =
+                "کد ورود را وارد کن.";
+
+            otpInput.focus();
+
+            return;
+
+        }
+
+
+        verifyOtpButton.disabled = true;
+
         authMessage.textContent =
-            "ورود با موفقیت انجام شد. ✓";
+            "در حال بررسی کد...";
 
 
-        if (data.user) {
+        try{
 
-            userStatus.textContent =
-                "وارد شده";
+            const {data,error} =
+                await supabaseClient.auth.verifyOtp({
 
-            userStatus.style.display =
-                "inline";
+                    email:pendingEmail,
 
+                    token:token,
+
+                    type:"email"
+
+                });
+
+
+            if(error){
+
+                console.error(error);
+
+                authMessage.textContent =
+                    "کد صحیح نیست یا منقضی شده است.";
+
+                verifyOtpButton.disabled = false;
+
+                return;
+
+            }
+
+
+            if(data && data.session){
+
+                authMessage.textContent =
+                    "ورود با موفقیت انجام شد ✓";
+
+
+                loginButton.textContent =
+                    "خروج";
+
+
+                setTimeout(function(){
+
+                    closeAuthBox();
+
+                },900);
+
+            }else{
+
+                authMessage.textContent =
+                    "ورود انجام نشد. دوباره امتحان کن.";
+
+            }
+
+
+        }catch(error){
+
+            console.error(error);
+
+            authMessage.textContent =
+                "خطایی در تأیید کد رخ داد.";
+
+        }
+
+
+        verifyOtpButton.disabled = false;
+
+    }
+);
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function logoutUser(){
+
+    try{
+
+        await supabaseClient.auth.signOut();
+
+        loginButton.textContent =
+            "ورود";
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =========================
+   CHECK LOGIN
+========================= */
+
+async function checkSession(){
+
+    try{
+
+        const {data} =
+            await supabaseClient.auth.getSession();
+
+
+        if(data && data.session){
 
             loginButton.textContent =
                 "خروج";
 
+        }else{
 
-            loginButton.onclick =
-                async function () {
-
-                    await supabaseClient.auth.signOut();
-
-                    userStatus.style.display =
-                        "none";
-
-                    loginButton.textContent =
-                        "ورود";
-
-                    loginButton.onclick =
-                        openAuth;
-
-                };
+            loginButton.textContent =
+                "ورود";
 
         }
 
+    }catch(error){
 
-        setTimeout(function () {
-
-            closeAuthBox();
-
-        }, 900);
-
-
-    } catch (error) {
-
-        authMessage.textContent =
-            "خطایی در تأیید کد رخ داد.";
+        console.error(error);
 
     }
 
-
-    verifyOtpButton.disabled = false;
-
-});
+}
 
 
 /* =========================
-   بررسی وضعیت ورود
-========================= */
-
-supabaseClient.auth.getSession().then(function (result) {
-
-    const session = result.data.session;
-
-
-    if (session) {
-
-        userStatus.textContent =
-            "وارد شده";
-
-        userStatus.style.display =
-            "inline";
-
-
-        loginButton.textContent =
-            "خروج";
-
-
-        loginButton.onclick =
-            async function () {
-
-                await supabaseClient.auth.signOut();
-
-                userStatus.style.display =
-                    "none";
-
-                loginButton.textContent =
-                    "ورود";
-
-                loginButton.onclick =
-                    openAuth;
-
-            };
-
-    }
-
-});
-
-
-/* =========================
-   تغییر وضعیت ورود
+   AUTH STATE
 ========================= */
 
 supabaseClient.auth.onAuthStateChange(
-    function (event, session) {
+    function(event,session){
 
-        if (session) {
+        if(session){
 
-            userStatus.textContent =
-                "وارد شده";
+            loginButton.textContent =
+                "خروج";
 
-            userStatus.style.display =
-                "inline";
+        }else{
+
+            loginButton.textContent =
+                "ورود";
+
+        }
+
+    }
+);
+
+
+/* =========================
+   START
+========================= */
+
+checkSession();
+
+
+/* =========================
+   ENTER KEY
+========================= */
+
+emailInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            sendOtpButton.click();
+
+        }
+
+    }
+);
+
+
+otpInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            verifyOtpButton.click();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   CLOSE WITH ESC
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            if(authOverlay.classList.contains("show")){
+
+                closeAuthBox();
+
+            }
 
         }
 
