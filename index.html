@@ -219,79 +219,6 @@ body{font-family:Tahoma,Arial,sans-serif;background:#e9e1ce;color:#303426;overfl
 <div class="authMessage" id="authMessage"></div>
 </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-<script>
-function enterBook(event){
-event.preventDefault();
-const intro=document.getElementById("intro");
-intro.classList.add("hide");
-setTimeout(function(){window.scrollTo({top:0,behavior:"smooth"});},700);
-}
-
-const SUPABASE_URL='https://blkpfqqmzweimqjbzvzv.supabase.co';
-const SUPABASE_KEY='sb_publishable_3V2kO61G1wKpiAM_TIRyzQ_bOXO3Tgt';
-const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
-const authOverlay=document.getElementById("authOverlay");
-const loginButton=document.getElementById("loginButton");
-const closeAuth=document.getElementById("closeAuth");
-const cancelEmailButton=document.getElementById("cancelEmailButton");
-const backEmailButton=document.getElementById("backEmailButton");
-const emailStep=document.getElementById("emailStep");
-const otpStep=document.getElementById("otpStep");
-const emailInput=document.getElementById("emailInput");
-const otpInput=document.getElementById("otpInput");
-const sendOtpButton=document.getElementById("sendOtpButton");
-const verifyOtpButton=document.getElementById("verifyOtpButton");
-const authMessage=document.getElementById("authMessage");
-const authIntro=document.getElementById("authIntro");
-const userStatus=document.getElementById("userStatus");
-
-let pendingEmail="";
-
-function openAuth(){
-authOverlay.classList.add("show");
-emailStep.style.display="block";
-otpStep.style.display="none";
-authMessage.textContent="";
-authIntro.textContent="ایمیل خودت را وارد کن تا کد ورود برایت ارسال شود.";
-setTimeout(()=>emailInput.focus(),100);
-}
-function closeAuthBox(){authOverlay.classList.remove("show");}
-
-loginButton.addEventListener("click",openAuth);
-closeAuth.addEventListener("click",closeAuthBox);
-cancelEmailButton.addEventListener("click",closeAuthBox);
-
-backEmailButton.addEventListener("click",function(){
-otpStep.style.display="none";
-emailStep.style.display="block";
-authMessage.textContent="";
-emailInput.focus();
-});
-
-sendOtpButton.addEventListener("click",async function(){
-const email=emailInput.value.trim();
-if(!email){authMessage.textContent="لطفاً ایمیل را وارد کن.";return;}
-sendOtpButton.disabled=true;
-authMessage.textContent="در حال ارسال کد...";
-const {error}=await supabaseClient.auth.signInWithOtp({
-email:email,
-options:{shouldCreateUser:true}
-});
-sendOtpButton.disabled=false;
-if(error){
-authMessage.textContent="ارسال کد انجام نشد: "+error.message;
-return;
-}
-pendingEmail=email;
-emailStep.style.display="none";
-otpStep.style.display="block";
-authIntro.textContent="کد ارسال‌شده به ایمیل را وارد کن.";
-authMessage.textContent="کد ورود ارسال شد.";
-otpInput.focus();
-});
 
 verifyOtpButton.addEventListener("click",async function(){
 const token=otpInput.value.trim();
@@ -337,5 +264,398 @@ loginButton.onclick=openAuth;
 }
 });
 </script>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+function enterBook(event) {
+    event.preventDefault();
+
+    const intro = document.getElementById("intro");
+
+    if (intro) {
+        intro.classList.add("hide");
+
+        setTimeout(function () {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }, 700);
+    }
+}
+
+
+/* =========================
+   اتصال به Supabase
+========================= */
+
+const SUPABASE_URL = "https://blkpfqqmzweimqjbzvzv.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_3V2kO61G1wKpiAM_TIRyzQ_bOXO3Tgt";
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+/* =========================
+   عناصر ورود
+========================= */
+
+const authOverlay = document.getElementById("authOverlay");
+const loginButton = document.getElementById("loginButton");
+
+const closeAuth = document.getElementById("closeAuth");
+const cancelEmailButton = document.getElementById("cancelEmailButton");
+const backEmailButton = document.getElementById("backEmailButton");
+
+const emailStep = document.getElementById("emailStep");
+const otpStep = document.getElementById("otpStep");
+
+const emailInput = document.getElementById("emailInput");
+const otpInput = document.getElementById("otpInput");
+
+const sendOtpButton = document.getElementById("sendOtpButton");
+const verifyOtpButton = document.getElementById("verifyOtpButton");
+
+const authMessage = document.getElementById("authMessage");
+const authIntro = document.getElementById("authIntro");
+
+const userStatus = document.getElementById("userStatus");
+
+let pendingEmail = "";
+
+
+/* =========================
+   باز کردن پنجره ورود
+========================= */
+
+function openAuth() {
+
+    authOverlay.classList.add("show");
+
+    emailStep.style.display = "block";
+    otpStep.style.display = "none";
+
+    authMessage.textContent = "";
+
+    authIntro.textContent =
+        "ایمیل خودت را وارد کن تا کد ورود برایت ارسال شود.";
+
+    emailInput.focus();
+}
+
+
+/* =========================
+   بستن پنجره ورود
+========================= */
+
+function closeAuthBox() {
+
+    authOverlay.classList.remove("show");
+
+}
+
+
+/* =========================
+   دکمه ورود
+========================= */
+
+loginButton.addEventListener("click", function () {
+
+    openAuth();
+
+});
+
+
+/* =========================
+   بستن
+========================= */
+
+closeAuth.addEventListener("click", function () {
+
+    closeAuthBox();
+
+});
+
+cancelEmailButton.addEventListener("click", function () {
+
+    closeAuthBox();
+
+});
+
+
+/* =========================
+   بازگشت از OTP
+========================= */
+
+backEmailButton.addEventListener("click", function () {
+
+    otpStep.style.display = "none";
+
+    emailStep.style.display = "block";
+
+    authMessage.textContent = "";
+
+    emailInput.focus();
+
+});
+
+
+/* =========================
+   ارسال کد ایمیل
+========================= */
+
+sendOtpButton.addEventListener("click", async function () {
+
+    const email = emailInput.value.trim();
+
+    if (!email) {
+
+        authMessage.textContent =
+            "لطفاً ایمیل را وارد کن.";
+
+        return;
+
+    }
+
+
+    sendOtpButton.disabled = true;
+
+    authMessage.textContent =
+        "در حال ارسال کد...";
+
+
+    try {
+
+        const { error } =
+            await supabaseClient.auth.signInWithOtp({
+
+                email: email,
+
+                options: {
+                    shouldCreateUser: true
+                }
+
+            });
+
+
+        if (error) {
+
+            authMessage.textContent =
+                "ارسال کد انجام نشد: " + error.message;
+
+            sendOtpButton.disabled = false;
+
+            return;
+
+        }
+
+
+        pendingEmail = email;
+
+
+        emailStep.style.display = "none";
+
+        otpStep.style.display = "block";
+
+
+        authIntro.textContent =
+            "کد ارسال‌شده به ایمیل را وارد کن.";
+
+        authMessage.textContent =
+            "کد ورود به ایمیل شما ارسال شد.";
+
+        otpInput.focus();
+
+
+    } catch (error) {
+
+        authMessage.textContent =
+            "خطایی در اتصال به سرویس ورود رخ داد.";
+
+    }
+
+
+    sendOtpButton.disabled = false;
+
+});
+
+
+/* =========================
+   تأیید کد OTP
+========================= */
+
+verifyOtpButton.addEventListener("click", async function () {
+
+    const token = otpInput.value.trim();
+
+
+    if (!pendingEmail || !token) {
+
+        authMessage.textContent =
+            "ایمیل و کد ورود را وارد کن.";
+
+        return;
+
+    }
+
+
+    verifyOtpButton.disabled = true;
+
+    authMessage.textContent =
+        "در حال بررسی کد...";
+
+
+    try {
+
+        const { data, error } =
+            await supabaseClient.auth.verifyOtp({
+
+                email: pendingEmail,
+
+                token: token,
+
+                type: "email"
+
+            });
+
+
+        if (error) {
+
+            authMessage.textContent =
+                "کد صحیح نیست یا منقضی شده است.";
+
+            verifyOtpButton.disabled = false;
+
+            return;
+
+        }
+
+
+        authMessage.textContent =
+            "ورود با موفقیت انجام شد. ✓";
+
+
+        if (data.user) {
+
+            userStatus.textContent =
+                "وارد شده";
+
+            userStatus.style.display =
+                "inline";
+
+
+            loginButton.textContent =
+                "خروج";
+
+
+            loginButton.onclick =
+                async function () {
+
+                    await supabaseClient.auth.signOut();
+
+                    userStatus.style.display =
+                        "none";
+
+                    loginButton.textContent =
+                        "ورود";
+
+                    loginButton.onclick =
+                        openAuth;
+
+                };
+
+        }
+
+
+        setTimeout(function () {
+
+            closeAuthBox();
+
+        }, 900);
+
+
+    } catch (error) {
+
+        authMessage.textContent =
+            "خطایی در تأیید کد رخ داد.";
+
+    }
+
+
+    verifyOtpButton.disabled = false;
+
+});
+
+
+/* =========================
+   بررسی وضعیت ورود
+========================= */
+
+supabaseClient.auth.getSession().then(function (result) {
+
+    const session = result.data.session;
+
+
+    if (session) {
+
+        userStatus.textContent =
+            "وارد شده";
+
+        userStatus.style.display =
+            "inline";
+
+
+        loginButton.textContent =
+            "خروج";
+
+
+        loginButton.onclick =
+            async function () {
+
+                await supabaseClient.auth.signOut();
+
+                userStatus.style.display =
+                    "none";
+
+                loginButton.textContent =
+                    "ورود";
+
+                loginButton.onclick =
+                    openAuth;
+
+            };
+
+    }
+
+});
+
+
+/* =========================
+   تغییر وضعیت ورود
+========================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function (event, session) {
+
+        if (session) {
+
+            userStatus.textContent =
+                "وارد شده";
+
+            userStatus.style.display =
+                "inline";
+
+        }
+
+    }
+);
+
+</script>
+
 </body>
 </html>
